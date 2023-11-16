@@ -1,1 +1,3 @@
 # Gestion_immobiliere
+Pour permettre une entreprise qui s’active dans le domaine immobilier de pouvoir gérer ses biens et de recevoir des avis sous forme de comentaires conccernant les biens. Il est question de réalisation une mini-application web permettant présenter ses derniers sous forme d’articles.
+Chaque bien possède un nom (par exemple : studio duplex), une catégorie (luxe, moyen, etc), une image illustrative, une description détaillée sur le bien, une adresse de localisation, un status (occupé ou pas), une date à laquelle le bien a été enregistré dans l’application. Les utilisateurs lamda, peuvent consulter les biens et éventuellement ajout des commentaires. 
