@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +31,8 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/newarticle', [ArticleController::class, 'create']);
+Route::post('/addarticle', [ArticleController::class, 'store']);
+
+Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);

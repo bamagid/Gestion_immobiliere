@@ -19,6 +19,6 @@ class Article extends Model
         'description',
         'localisation',
         'statut',
-        'admin_id',
+        // 'admin_id',
     ];
 }

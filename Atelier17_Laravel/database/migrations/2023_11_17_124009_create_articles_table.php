@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('localisation');
             $table->enum('statut',['occupé', 'disponible']);
-            $table->foreignIdFor(Admin::class)->constrained()->onDelete('cascade');
+            // $table->foreignIdFor(Admin::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -20,7 +20,8 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        //
+        // return 'SALAM';
+        return view('articles.ajouter');
     }
 
     /**
@@ -28,7 +29,26 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nom' => 'required',
+            // 'categorie' => 'required',
+            'image' => 'required',
+            'description' => 'required',
+            'localisation' => 'required',
+            'statut' => 'required',
+        ]);
+
+        $article = new Article();
+        $article->nom = $request->nom;
+        // $article->categorie = $request->categorie;
+        $article->image = $request->image;
+        $article->description = $request->description;
+        $article->localisation = $request->localisation;
+        $article->statut = $request->statut;
+        $article->save();
+
+        return redirect('/newarticle')->with('statut', "Bien Immobilier enregistré avec succès");
+
     }
 
     /**
