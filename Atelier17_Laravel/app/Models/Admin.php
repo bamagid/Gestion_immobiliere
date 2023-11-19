@@ -12,6 +12,9 @@ class Admin extends Model
     public function articles(){
         return $this->hasMany(Article::class);
     }
+    public function comments(){
+        return $this->hasMany(Commentaire::class);
+    }
 
     protected $fillable = [
         'name',
