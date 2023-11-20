@@ -66,11 +66,12 @@ class ArticleController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit( $id)
     {
         $article=Article::find($id);
         $admins=Admin::all();
-        return view('articles.modifierArticles',compact('admins','article'));
+        return view('modifierArticles',compact('admins','article'));
+      
     }
 
     /**
@@ -78,7 +79,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request)
     {
-        
+      
         $request->validate([
             'nom' => 'required',
             'image' => 'required',
@@ -87,13 +88,14 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
        
+        // $article = new Article();
         $article= Article::find($request->id);
         $article->nom = $request->nom;
         $article->description = $request->description;
         $article->image = $request->image;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
-        $article->admin_id =Auth::user()->id;
+        $article->admin_id =  Auth::user()->id;
         $article->update();
     
 
