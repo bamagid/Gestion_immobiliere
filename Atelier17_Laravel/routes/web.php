@@ -17,11 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 

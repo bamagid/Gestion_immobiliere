@@ -16,7 +16,7 @@ class ArticleController extends Controller
     public function index()
     {
          $article= Article::all();
-        return view("articles.articles",['article'=>$article]);
+        return view('welcome',['article'=>$article]);
     }
     /**
      * Show the form for creating a new resource.
