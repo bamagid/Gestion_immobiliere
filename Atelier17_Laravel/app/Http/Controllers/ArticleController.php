@@ -70,7 +70,7 @@ class ArticleController extends Controller
     {
         $article=Article::find($id);
         $admins=Admin::all();
-        return view('modifierArticles',compact('admins','article'));
+        return view('articles.modifierArticles',compact('admins','article'));
       
     }
 
