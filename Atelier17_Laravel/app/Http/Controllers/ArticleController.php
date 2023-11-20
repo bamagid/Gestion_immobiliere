@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -61,7 +62,7 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article=Article::find($id);
-        $admins =Admin::where('id','=',$article->admin_id)->first();
+        $admins =User::where('id','=',$article->user_id)->first();
         return view('articles.voirplus',['article'=>$article, 'admins'=>$admins]);
     }
 
@@ -71,7 +72,7 @@ class ArticleController extends Controller
     public function edit( $id)
     {
         $article=Article::find($id);
-        $admins=Admin::all();
+        $admins=User::all();
         return view('articles.modifierArticles',compact('admins','article'));
       
     }

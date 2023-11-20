@@ -1,17 +1,3 @@
-<!--
-=========================================================
-* Material Dashboard 2 - v3.0.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/material-dashboard
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://www.creative-tim.com/license)
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
--->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,9 +6,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./assets/img/favicon.png">
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.bunny.net">
+  <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"/>
   <title>
-    Material Dashboard 2 by Creative Tim
+   Immo
   </title>
+  <!--    Card slider's style     -->
+  <link rel="stylesheet"  href="./assets/css/style.css" />
+  
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
@@ -51,30 +44,52 @@
         <li class="nav-item mt-3">
             <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
           </li>
+          @if (Auth::user() || isset($admin))
           <li class="nav-item">
-            <a class="nav-link text-white " href="{{asset('/pages/profile.html')}}">
+            <a class="nav-link text-white" href="{{route('profile.edit')}}">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons opacity-10">person</i>
               </div>
               <span class="nav-link-text ms-1">Profile</span>
             </a>
-          </li>
+          </li>   
+          @endif
+          @if (!Auth::user() && empty($admin))
           <li class="nav-item">
             <a class="nav-link text-white " href="/login">
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                 <i class="material-icons opacity-10">login</i>
               </div>
-              <span class="nav-link-text ms-1">Sign In</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-white " href="/register">
+              <span class="nav-link-text ms-1">Se connecter</span>
+              </a>
+              </li>   
+          @endif
+          
+              @if (Auth::user() || isset($admin))
+              <li class="nav-item">
+                <form method="POST" class="nav-link text-white "   action="{{ route('logout') }}">
+                  @csrf
               <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                <i class="material-icons opacity-10">assignment</i>
+                <i class="material-icons opacity-10">logout</i>
               </div>
-              <span class="nav-link-text ms-1">Sign Up</span>
-            </a>
-          </li>
+              <a class="text-white" href="{{route('logout')}}"  onclick="event.preventDefault();
+              this.closest('form').submit();">
+                  {{ __('Se deconnecter') }}
+              </a>  
+            </form>
+          </a>
+            </li> 
+              @endif
+            @if (!Auth::user() && empty($admin))   
+            <li class="nav-item">
+              <a class="nav-link text-white " href="/register">
+                <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                  <i class="material-icons opacity-10">assignment</i>
+                </div>
+                <span class="nav-link-text ms-1">S'inscrire</span>
+              </a>
+            </li>
+            @endif
         <li class="nav-item">
           <a class="nav-link text-white active bg-gradient-primary" href="{{asset('/pages/dashboard.html')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -82,7 +97,9 @@
             </div>
             <span class="nav-link-text ms-1">Biens  Immobiliers</span>
           </a>
-        </li>
+    </ul>
+  </div>
+</div>
       </ul>
     </div>
   </aside>
@@ -101,7 +118,14 @@
             <li class="nav-item d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">{{Auth::user() ? Auth::user()->name : 'pas connecté'}}</span>
+                <span class="d-sm-inline d-none">@if (Auth::user())
+                   {{ Auth::user()->name}}
+                @elseif (isset($admin)) 
+                  {{$admin->name}}
+                @else 
+                  pas connecté
+                @endif
+              </span>
               </a>
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
@@ -118,13 +142,9 @@
                 <i class="fa fa-cog fixed-plugin-button-nav cursor-pointer"></i>
               </a>
             </li>
-          </ul>
-        </div>
-      </div>
+            <li>        
     </nav>
     <!-- End Navbar -->
-    
-    
     @yield('content')
     
     
