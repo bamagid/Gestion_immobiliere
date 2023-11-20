@@ -1,9 +1,9 @@
 @extends('layouts.template')
 @section('content')
 
-<form action="/addarticle" method="POST">
+<form action="/addarticle" method="POST" enctype="multipart/form-data">
     @csrf 
-    <div class="container col-md-8 border">
+    <div class="container col-md-6 border">
         <h4 class="text-center"> 
             Ajouter un nouveau Bien Immobillier <br> (Appartement, Maison, Studio ...)
         </h4>
@@ -12,16 +12,19 @@
               <label class="form-label">Nom</label>
               <input name="nom" type="text" class="form-control">
             </div>
-        
-            {{-- <div class="input-group input-group-outline my-3">
-              <label class="form-label">Catégorie</label>
-              <input name="categorie" type="text" class="form-control">
-            </div> --}}
             <div class="input-group input-group-outline my-3">
-              <label class="form-label">image</label>
-              <input name="image" type="text" class="form-control">
+              <select style="width: 500px;"  name="categorie" class="pe-2 btn btn-sm btn-outline-primary " aria-label="Default select example">
+                  <option selected>Catégorie</option>
+                  <option value="luxe">Luxe</option>
+                  <option value="moyen">Moyen</option>
+                  <option value="abordable">Abordable</option>
+                </select>
+              </div>
+            <div class="input-group input-group-outline">
+              <label class="form-label mb-2" >Image</label>
+			        <input type="file" name="image" class="form-control mt-5">
             </div>
-            <div class="input-group input-group-outline my-3">
+            <div class="input-group input-group-outline my-2">
               <textarea name="description" type="text" class="form-control" rows="3" placeholder="Description"></textarea>
             </div>
             <div class="input-group input-group-outline my-3">
@@ -29,14 +32,15 @@
               <input name="localisation" type="text" class="form-control">
             </div>
             <div class="input-group input-group-outline my-3">
-            <select name="statut" class="form-select btn btn-outline-primary dropdown-toggle" aria-label="Default select example">
-                {{-- <option selected>Statut</option> --}}
+            <select style="width: 500px;" name="statut" class="pe-2 btn btn-sm btn-outline-primary " aria-label="Default select example">
+                <option selected>Statut</option>
                 <option value="disponible">disponible</option>
                 <option value="occupé">occupé</option>
               </select>
             </div>
-            
-            <button type="submit" class="btn btn-primary ">Enregistrer</button>
+            <div class="d-flex justify-content-center align-items-center">
+            <button type="submit" class="btn  btn-primary " style="width: 300px;">Enregistrer</button>
+          </div>
         </div>
     </div>
    
