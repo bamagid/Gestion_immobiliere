@@ -15,6 +15,7 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->enum('categorie',['luxe','moyen','abordable']);
             $table->text('description');
             $table->string('image');
             $table->string('localisation');

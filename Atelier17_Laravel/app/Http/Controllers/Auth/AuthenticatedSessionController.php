@@ -19,10 +19,23 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
+    public function create1(): View
+    {
+        return view('auth.admin');
+    }
 
     /**
      * Handle an incoming authentication request.
      */
+    public function admin(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return redirect()->intended('/dashbord');
+    }
+    
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
