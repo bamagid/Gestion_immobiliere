@@ -30,7 +30,13 @@
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
             <div >
               <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-primary">modifier</a>
-              <a href="{{'/deletearticle/'.$article->id}}" class="badge rounded-pill bg-danger">supprimer</a>
+              
+              <form action="{{'/articles/deletearticle/'.$article->id}}" method="post">
+                @csrf 
+                @method('delete')
+                <button class="badge rounded-pill bg-dark" type="submit">Supprimer</button>
+              </form>
+              {{-- <a href="{{'/deletearticle/'.$article->id}}" class="badge rounded-pill bg-secondary">supprimer</a> --}}
              </div>
           </div>
             </div>

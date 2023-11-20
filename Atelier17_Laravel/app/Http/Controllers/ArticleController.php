@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class ArticleController extends Controller
 {
@@ -118,6 +119,15 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        
+        // dd($article);
+        $article = Article::findOrfail($article);
+        $article->delete();
+        return Redirect::to('/articles');
+        // return redirect('/articles')->with('success', 'Article supprimé avec succès');
     }
+
+    
 }
+// $article::where('user_id', Auth::user()->id)->delete();
+// 

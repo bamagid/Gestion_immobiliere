@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/newarticle', [ArticleController::class, 'create']);
     Route::post('/addarticle', [ArticleController::class, 'store']);
     // Supprimer Bien 
-    Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);
+    Route::delete('/articles/deletearticle/{id}', [ArticleController::class, 'destroy']);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
