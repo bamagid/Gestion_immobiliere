@@ -31,11 +31,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);
-
+    
+    // Ajouter Bien
     Route::get('/newarticle', [ArticleController::class, 'create']);
     Route::post('/addarticle', [ArticleController::class, 'store']);
-    
-    
+    // Supprimer Bien 
     Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

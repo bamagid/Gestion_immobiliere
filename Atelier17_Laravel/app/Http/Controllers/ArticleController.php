@@ -32,24 +32,31 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
+   
+
         $request->validate([
-            'nom' => 'required',
-            // 'categorie' => 'required',
-            "image" => 'required|image|max:1024',
+            'nom' => 'required|max:255',
+            'categorie' => 'required',
+            'image' => 'required',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
         ]);
-
-        $chemin_image = $request->image->store("articles");
-
         $article = new Article();
         $article->nom = $request->nom;
-        // $article->categorie = $request->categorie;
-        $article->image = $chemin_image;
+        $article->categorie = $request->categorie;
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('images'),$filename);
+            $article['image']=$filename;
+        }
+        // dd($filename);
         $article->description = $request->description;
+        $article->user_id = Auth::user()->id;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
+        
         $article->save();
 
         return redirect('/newarticle')->with('statut', "Bien Immobilier enregistré avec succès");
@@ -91,6 +98,7 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
        
+        
         // $article = new Article();
         $article= Article::find($request->id);
         $article->nom = $request->nom;

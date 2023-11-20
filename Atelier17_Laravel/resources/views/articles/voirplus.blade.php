@@ -30,7 +30,7 @@
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
             <div >
               <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-primary">modifier</a>
-              <a href="#" class="badge rounded-pill bg-danger">supprimer</a>
+              <a href="{{'/deletearticle/'.$article->id}}" class="badge rounded-pill bg-danger">supprimer</a>
              </div>
           </div>
             </div>
