@@ -31,18 +31,24 @@
             <div >
               <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-dark">modifier</a>
               <a href="#" class="badge rounded-pill bg-primary">supprimer</a>
-             </div>
+            </div>  
           </div>
             </div>
           </div>
         </div>
       </div>
 
-    @forelse ($article->comments() as $comment)
-    {{$comment->contenu}}
-
-    @empty
-      pas de commentaire pour cet article  
-    @endforelse
+      <div>
+        @forelse ($article->comments as $comment)
+          {{$comment->contenu}}
+          @foreach ($comment->user as $user)
+          {{$user->name}}
+      @endforeach
+      <form action="" method="post"></form>
+      <button></button>
+        @empty
+          pas de commentaire pour cet article  
+        @endforelse
+      </div>
 
 @endsection
