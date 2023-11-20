@@ -3,7 +3,7 @@
 
 
 
-<form action="{{'/articles/modifierArticle/ '.$article->id}}"method="post">
+<form action="{{'/articles/modifierArticle/ '.$article->id}}"method="post" enctype="multipart/form-data">
     {{-- @method("PATCH") --}}
     @csrf 
     <div class="container col-md-8 border">
@@ -16,13 +16,17 @@
               <input name="nom" value="{{$article->nom}}"type="text" class="form-control">
             </div>
 
-            {{-- <div class="input-group input-group-outline my-3">
-              <label class="form-label">Catégorie</label>
-              <input name="categorie" type="text" class="form-control">
-            </div> --}}
+            <div class="input-group input-group-outline my-3">
+              <select style="width: 500px;" value="{{$article->categorie}}" name="categorie" class="pe-2 btn btn-sm btn-outline-primary " aria-label="Default select example">
+                  <option selected>Categorie</option>
+                  <option value="luxe">Luxe</option>
+                  <option value="moyen">Moyen</option>
+                  <option value="abordable">Abordable</option>
+                </select>
+              </div>
             <div class="input-group input-group-outline my-3">
               <label class="form-label">image</label>
-              <input name="image"  value="{{$article->image}}"type="text" class="form-control">
+              <input name="image"  value="{{$article->image}}"type="file" class="form-control">
             </div>
             <div class="input-group input-group-outline my-3">
               <textarea name="description" type="text" class="form-control" rows="3" placeholder="Description">{{$article->description}}</textarea>
