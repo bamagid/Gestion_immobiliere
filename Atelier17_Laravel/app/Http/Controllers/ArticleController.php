@@ -32,16 +32,18 @@ class ArticleController extends Controller
         $request->validate([
             'nom' => 'required',
             // 'categorie' => 'required',
-            'image' => 'required',
+            "image" => 'required|image|max:1024',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
         ]);
 
+        $chemin_image = $request->image->store("articles");
+
         $article = new Article();
         $article->nom = $request->nom;
         // $article->categorie = $request->categorie;
-        $article->image = $request->image;
+        $article->image = $chemin_image;
         $article->description = $request->description;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
