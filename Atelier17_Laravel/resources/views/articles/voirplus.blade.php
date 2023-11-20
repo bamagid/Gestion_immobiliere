@@ -28,7 +28,6 @@
           <div class="d-flex ">
             <i class="material-icons text-sm my-auto me-1">schedule</i>
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
-<<<<<<< HEAD
             <div >
               <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-primary">modifier</a>
               <a href="#" class="badge rounded-pill bg-danger">supprimer</a>
@@ -45,25 +44,5 @@
     @empty
       pas de commentaire pour cet article  
     @endforelse
-=======
-          </div>
-          <div class="card-body">
-            <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-primary">modifier</a>
-            <a href="#" class="badge rounded-pill bg-danger">supprimer</a>
-          </div>
-        </div>
-       
-      </div>
-     
-    </div>
- 
-  </div>
-  {{-- @foreach ($article->comments() as $comment )
- {{' $comment->contenu'}}
-      
-  @endforeach --}}
-
-
->>>>>>> a86748cc5fcb171d419d77a27914744790331ac0
 
 @endsection
