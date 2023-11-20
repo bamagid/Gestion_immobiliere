@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Commentaire;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,8 +35,6 @@ class CommentaireController extends Controller
         $comments->article_id=$request->article_id;
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
-        $comments->admin_id=$request->admin_id;
-        $comments->is_delete=false;
         if ($comments->save()) {
            return redirect('/')->with('status','Bravo le commentaire est ajouté!');
         }else{
@@ -53,10 +53,13 @@ class CommentaireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $commentaire=Commentaire::findOrFail($request->id);
-        return redirect('/article'.$request->article_id);
+         $ok='ok';
+        $commentaire=Commentaire::findorFail($id);
+        $article=Article::find($commentaire->article_id);
+        return view('articles.voirplus',compact('commentaire','article','ok'));
+        return redirect('/articles/'.$commentaire->article_id);
         
     }
 
@@ -69,10 +72,8 @@ class CommentaireController extends Controller
         $comments->article_id=$request->article_id;
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
-        $comments->admin_id=$request->admin_id;
-        $comments->is_delete=false;
         if ($comments->save()) {
-           return redirect('/')->with('status','Bravo le commentaire est ajouté!');
+           return redirect('/articles/'.$request->article_id)->with('status','Bravo le commentaire est modifié avec succes!');
         }else{
             return back()->withInput();
         }

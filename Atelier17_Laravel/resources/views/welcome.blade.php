@@ -18,8 +18,16 @@
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
           </div>
           <div class="card-body">
+          <div>
             <a href="{{'/articles/'. $article->id}}" class="badge rounded-pill bg-primary">voir plus</a>
-            <a href="#" class="badge rounded-pill bg-dark">Commenter</a>
+          </div>
+            <form action="/commentaire" class="comment_class"  method="post"> 
+              @csrf    
+              <input type="hidden" name="article_id" value="1">
+              <input type="hidden" name="user_id" value='{{Auth::user() ? Auth::user()->id : ''}}'>
+              <input type="text" class="input_comment" name="contenu" placeholder="Taper ici votre commentaire..."  >
+            <button type="submit" class="card__btn">Commenter</button>
+          </form>
           </div>
         </div>
        
