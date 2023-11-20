@@ -29,8 +29,8 @@
             <i class="material-icons text-sm my-auto me-1">schedule</i>
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
             <div >
-              <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-primary">modifier</a>
-              <a href="#" class="badge rounded-pill bg-danger">supprimer</a>
+              <a href="{{'/article/modifier/'.$article->id}}" class="badge rounded-pill bg-dark">modifier</a>
+              <a href="#" class="badge rounded-pill bg-primary">supprimer</a>
              </div>
           </div>
             </div>
