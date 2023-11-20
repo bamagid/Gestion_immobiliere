@@ -11,6 +11,10 @@ class Article extends Model
     public function admin(){
         return $this->belongsTo(Admin::class);
     }
+    public function comments(){
+        return $this->hasmany(Commentaire::class);
+    }
+
 
     protected $fillable = [
         'nom',
@@ -18,7 +22,6 @@ class Article extends Model
         'image',
         'description',
         'localisation',
-        'statut',
-        'admin_id',
+        'statut'
     ];
 }

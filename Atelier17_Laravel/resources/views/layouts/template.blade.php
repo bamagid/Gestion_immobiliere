@@ -19,14 +19,14 @@
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
   <!-- Nucleo Icons -->
-  <link href="./assets/css/nucleo-icons.css" rel="stylesheet" />
-  <link href="./assets/css/nucleo-svg.css" rel="stylesheet" />
+  <link href="{{asset('/assets/css/nucleo-icons.css')}}" rel="stylesheet" />
+  <link href="{{asset('/assets/css/nucleo-svg.css')}}" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <!-- Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <!-- CSS Files -->
-  <link id="pagestyle" href="./assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <link id="pagestyle" href="{{asset('/assets/css/material-dashboard.css?v=3.0.0')}}" rel="stylesheet" />
 </head>
 
 <body class="g-sidenav-show  bg-gray-200">
@@ -34,7 +34,7 @@
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard " target="_blank">
-        <img src="./assets/img/logo-ct.png" class="navbar-brand-img h-100" alt="main_logo">
+        <img src="{{asset('/assets/img/logo-ct.png')}}" class="navbar-brand-img h-100" alt="main_logo">
         <span class="ms-1 font-weight-bold text-white">Material Dashboard 2</span>
       </a>
     </div>
@@ -91,7 +91,7 @@
             </li>
             @endif
         <li class="nav-item">
-          <a class="nav-link text-white active bg-gradient-primary" href="./pages/dashboard.html">
+          <a class="nav-link text-white active bg-gradient-primary" href="{{asset('/pages/dashboard.html')}}">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">dashboard</i>
             </div>
@@ -249,84 +249,11 @@
     </div>
   </div>
   <!--   Core JS Files   -->
-  <script src="./assets/js/core/popper.min.js"></script>
-  <script src="./assets/js/core/bootstrap.min.js"></script>
-  <script src="./assets/js/plugins/perfect-scrollbar.min.js"></script>
-  <script src="./assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script src="./assets/js/plugins/chartjs.min.js"></script>
-  <script type="text/javascript">
-    function getPageList(totalPages, page, maxLength){
-      function range(start, end){
-        return Array.from(Array(end - start + 1), (_, i) => i + start);
-      }
-    
-      var sideWidth = maxLength < 9 ? 1 : 2;
-      var leftWidth = (maxLength - sideWidth * 2 - 3) >> 1;
-      var rightWidth = (maxLength - sideWidth * 2 - 3) >> 1;
-    
-      if(totalPages <= maxLength){
-        return range(1, totalPages);
-      }
-    
-      if(page <= maxLength - sideWidth - 1 - rightWidth){
-        return range(1, maxLength - sideWidth - 1).concat(0, range(totalPages - sideWidth + 1, totalPages));
-      }
-    
-      if(page >= totalPages - sideWidth - 1 - rightWidth){
-        return range(1, sideWidth).concat(0, range(totalPages- sideWidth - 1 - rightWidth - leftWidth, totalPages));
-      }
-    
-      return range(1, sideWidth).concat(0, range(page - leftWidth, page + rightWidth), 0, range(totalPages - sideWidth + 1, totalPages));
-    }
-    
-    $(function(){
-      var numberOfItems = $(".card-content .card").length;
-      var limitPerPage = 3; //How many card items visible per a page
-      var totalPages = Math.ceil(numberOfItems / limitPerPage);
-      var paginationSize = 7; //How many page elements visible in the pagination
-      var currentPage;
-    
-      function showPage(whichPage){
-        if(whichPage < 1 || whichPage > totalPages) return false;
-    
-        currentPage = whichPage;
-    
-        $(".card-content .card").hide().slice((currentPage - 1) * limitPerPage, currentPage * limitPerPage).show();
-    
-        $(".pagination li").slice(1, -1).remove();
-    
-        getPageList(totalPages, currentPage, paginationSize).forEach(item => {
-          $("<li>").addClass("page-item").addClass(item ? "current-page" : "dots")
-          .toggleClass("active", item === currentPage).append($("<a>").addClass("page-link")
-          .attr({href: "javascript:void(0)"}).text(item || "...")).insertBefore(".next-page");
-        });
-    
-        $(".previous-page").toggleClass("disable", currentPage === 1);
-        $(".next-page").toggleClass("disable", currentPage === totalPages);
-        return true;
-      }
-    
-      $(".pagination").append(
-        $("<li>").addClass("page-item").addClass("previous-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Prev")),
-        $("<li>").addClass("page-item").addClass("next-page").append($("<a>").addClass("page-link").attr({href: "javascript:void(0)"}).text("Next"))
-      );
-    
-      $(".card-content").show();
-      showPage(1);
-    
-      $(document).on("click", ".pagination li.current-page:not(.active)", function(){
-        return showPage(+$(this).text());
-      });
-    
-      $(".next-page").on("click", function(){
-        return showPage(currentPage + 1);
-      });
-    
-      $(".previous-page").on("click", function(){
-        return showPage(currentPage - 1);
-      });
-    });
-    </script>
+  <script src="{{asset('/assets/js/core/popper.min.js')}}"></script>
+  <script src="{{asset('/assets/js/core/bootstrap.min.js')}}"></script>
+  <script src="{{asset('/assets/js/plugins/perfect-scrollbar.min.js')}}"></script>
+  <script src="{{asset('/assets/js/plugins/smooth-scrollbar.min.js')}}"></script>
+  <script src="{{asset('/assets/js/plugins/chartjs.min.js')}}"></script>
   <script>
     var ctx = document.getElementById("chart-bars").getContext("2d");
 
@@ -586,7 +513,7 @@
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="./assets/js/material-dashboard.min.js?v=3.0.0"></script>
+  <script src="{{asset('/assets/js/material-dashboard.min.js?v=3.0.0')}}"></script>
 </body>
 
 </html>
