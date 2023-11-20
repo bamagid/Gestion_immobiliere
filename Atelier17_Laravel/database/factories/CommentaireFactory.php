@@ -18,7 +18,6 @@ class CommentaireFactory extends Factory
     {
         return [
             'user_id'=>rand(1,6),
-            'admin_id'=>rand(1,6),
             'article_id'=>rand(1,8),
             'contenu'=>$this->faker->sentence(),
 

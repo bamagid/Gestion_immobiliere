@@ -24,9 +24,6 @@ Route::get('/articles', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return view('dashboard');
@@ -37,11 +34,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/newarticle', [ArticleController::class, 'create']);
     Route::post('/addarticle', [ArticleController::class, 'store']);
-
-    Route::post('/commenter',[CommentaireController::class,'store']);
-    Route::get('/commenter/{id}',[CommentaireController::class,'edit']);
-    Route::post('/commenter/update',[CommentaireController::class,'update']);
-    Route::post('/commenter/delete',[CommentaireController::class,'delete']);
+    
     
     Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);
     

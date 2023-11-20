@@ -17,10 +17,8 @@ return new class extends Migration
         Schema::create('commentaires', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Admin::class)->constrained()->nullable()->onDelete('cascade');
             $table->foreignIdFor(Article::class)->constrained()->onDelete('cascade');
             $table->text('contenu');
-            $table->boolean('is_delete')->default(false);
             $table->timestamps();
         });
     }

@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
         'image'=>'imagepath',
         'localisation'=>fake()->text(),
         'statut'=>$this->faker->randomElement(['disponible','occupé']),
-        'admin_id'=>rand(1,5), 
+        'user_id'=>rand(1,8), 
         ];
     }
 }

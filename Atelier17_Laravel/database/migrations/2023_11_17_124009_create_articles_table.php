@@ -1,6 +1,5 @@
 <?php
-
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -20,7 +19,8 @@ return new class extends Migration
             $table->string('image');
             $table->string('localisation');
             $table->enum('statut',['occupé', 'disponible']);
-            $table->foreignIdFor(Admin::class)->constrained()->onDelete('cascade');
+            $table->boolean('is_deleted')->default(false);
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
