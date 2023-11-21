@@ -117,7 +117,7 @@ class ArticleController extends Controller
         $article->image = $request->image;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
-        $article->admin_id =  Auth::user()->id;
+        $article->user_id =  Auth::user()->id;
         $article->update();
     
 
