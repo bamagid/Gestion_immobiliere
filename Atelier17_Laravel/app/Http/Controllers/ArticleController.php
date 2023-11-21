@@ -16,8 +16,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-         $article= Article::all();
-        return view('welcome',['article'=>$article]);
+        $articles = Article::paginate(10);
+        return view('welcome', ['articles' => $articles]);
     }
     /**
      * Show the form for creating a new resource.
@@ -33,7 +33,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-   
+
 
         $request->validate([
             'nom' => 'required|max:255',
@@ -46,22 +46,21 @@ class ArticleController extends Controller
         $article = new Article();
         $article->nom = $request->nom;
         $article->categorie = $request->categorie;
-        if($request->file('image')){
-            $file= $request->file('image');
-            $filename= date('YmdHi').$file->getClientOriginalName();
-            $file-> move(public_path('images'),$filename);
-            $article['image']=$filename;
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $article['image'] = $filename;
         }
         // dd($filename);
         $article->description = $request->description;
         $article->user_id = Auth::user()->id;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
-        
+
         $article->save();
 
         return redirect('/newarticle')->with('statut', "Bien Immobilier enregistré avec succès");
-
     }
 
     /**
@@ -69,20 +68,28 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article=Article::find($id);
-        $admins =User::where('id','=',$article->user_id)->first();
-        return view('articles.voirplus',['article'=>$article, 'admins'=>$admins]);
+        $article = Article::find($id);
+        $admins = User::where('id', '=', $article->user_id)->first();
+        return view('articles.voirplus', ['article' => $article, 'admins' => $admins]);
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function shows(User $user)
+    {
+        $articles= Article::paginate(5);
+        return view('articles.voirplus', ['articles' => $articles]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit( $id)
+    public function edit($id)
     {
-        $article=Article::find($id);
-        $admins=User::all();
-        return view('articles.modifierArticles',compact('admins','article'));
-      
+        $article = Article::find($id);
+        $admins = User::all();
+        return view('articles.modifierArticles', compact('admins', 'article'));
     }
 
     /**
@@ -90,28 +97,29 @@ class ArticleController extends Controller
      */
     public function update(Request $request)
     {
-      
+
         $request->validate([
             'nom' => 'required',
+            'categorie' => 'required',
             'image' => 'required',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
         ]);
-       
-        
-        // $article = new Article();
-        $article= Article::find($request->id);
+        $article = Article::find($request->id);
         $article->nom = $request->nom;
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $filename = date('YmdHi') . $file->getClientOriginalName();
+            $file->move(public_path('images'), $filename);
+            $article['image'] = $filename;
+        }
         $article->description = $request->description;
-        $article->image = $request->image;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
-        $article->admin_id =  Auth::user()->id;
+        $article->user_id = Auth::user()->id;
         $article->update();
-    
-
-        return redirect('/articles/'. $request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        return redirect('/articles/' . $request->id)->with('statut', "Bien Immobilier modifier avec succès");
     }
 
     /**
