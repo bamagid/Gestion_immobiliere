@@ -19,10 +19,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/', [ArticleController::class, 'index']);
+Route::get('/articles/listearticles', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 
+Route::get('/', function(){
+    return view('welcome');
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -34,8 +37,8 @@ Route::middleware('auth')->group(function () {
     // Ajouter Bien
     Route::get('/newarticle', [ArticleController::class, 'create']);
     Route::post('/addarticle', [ArticleController::class, 'store']);
-
-    Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);
+    // Supprimer Bien 
+    Route::get('/articles/deletearticle/{id}', [ArticleController::class, 'destroy']);
 
     Route::post('/commentaire', [CommentaireController::class, 'store']);
     Route::get('/articles/commentaire/{id}', [CommentaireController::class, 'edit']);
