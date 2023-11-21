@@ -81,9 +81,8 @@ class ArticleController extends Controller
     public function shows()
     {
         $article = Article::all();
-
+        $this->authorize('view', $article);
         $articles = Article::paginate(5);
-        $this->authorize('view', $articles);
         return view('articles.myposts', ['article' => $article]);
     }
 
