@@ -41,14 +41,16 @@
                             <div>
                                 <a href="/articles/{{ $article->id }}" class="btn btn-primary me-3">voir plus</a>
                             </div>
+                            @can('create', $article->comments)
                             <form action="/commentaire" class="comment_class" method="post">
                                 @csrf
                                 <input type="hidden" name="article_id" value="{{ $article->id }}">
-                                <input type="hidden" name="user_id" value='{{ Auth::user()->id }}'>
+                                <input type="hidden" name="user_id" value='{{  Auth::user() ?  Auth::user()->id :'' }}'>
                                 <input type="text" class="input_comment" name="contenu"
                                     placeholder="Taper ici votre commentaire...">
                                 <button type="submit" class="card__btn">Commenter</button>
                             </form>
+                            @endcan
                         </div>
                     </div>
 

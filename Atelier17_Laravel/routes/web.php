@@ -21,15 +21,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/articles/listearticles', [ArticleController::class, 'index']);
 
-Route::get('/articles/{id}',[ArticleController::class,'show']);
+Route::get('/articles/{id}',[ArticleController::class,'shows']);
 
 Route::get('/', function(){
     return view('welcome');
 });
 
+Route::get('/admin',[ArticleController::class,'show']);
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashbord',[ArticleController::class,'shows']);
 
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);

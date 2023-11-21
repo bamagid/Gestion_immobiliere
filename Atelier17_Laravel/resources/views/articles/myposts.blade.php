@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row   mt-2" >
-  @foreach ($articles as $article )
+  @forelse ($articles as $article )
   @if ($article->user_id===Auth::user()->id)
       
   <div class="col-lg-6 mt-4 mb-4 " >
@@ -28,7 +28,9 @@
       
     </div>
     @endif
-    @endforeach
+    @empty
+    Vous n'avez pas de biens 
+    @endforelse
     {{$articles->links()}}
   </div>
   
