@@ -1,4 +1,5 @@
 @extends('layouts.template')
+
 @section('content')
     @if (session('statut'))
         <div class="alert alert-success">
@@ -37,7 +38,7 @@
     </div>
     </div>
 
-    {{-- <div>
+    <div>
         @forelse ($article->comments as $comment)
             {{ $comment->contenu }}
             @foreach ($comment->user as $user)
@@ -48,6 +49,6 @@
         @empty
             pas de commentaire pour cet article
         @endforelse
-    </div> --}}
+    </div>
 
 @endsection

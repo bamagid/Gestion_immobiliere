@@ -8,7 +8,6 @@
             </h1>
         </div>
             <div>
-              {{-- {{asset('/assets/css/nucleo-icons.css')}} --}}
               <img src="{{asset('jym_immob-removebg.png')}}" alt="Image de JYM Immo" width="1000px">
             </div>
         </div>
