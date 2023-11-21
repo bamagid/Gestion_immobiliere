@@ -19,12 +19,12 @@ class ArticleController extends Controller
         $articles = Article::paginate(10);
         return view('articles.listearticles', ['articles' => $articles]);
     }
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        // return 'SALAM';
         return view('articles.ajouter');
     }
 
@@ -33,8 +33,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-
-
         $request->validate([
             'nom' => 'required|max:255',
             'categorie' => 'required',
@@ -44,6 +42,7 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
         $article = new Article();
+        $this->authorize('create', $article);
         $article->nom = $request->nom;
         $article->categorie = $request->categorie;
         if ($request->file('image')) {
@@ -52,7 +51,6 @@ class ArticleController extends Controller
             $file->move(public_path('images'), $filename);
             $article['image'] = $filename;
         }
-        // dd($filename);
         $article->description = $request->description;
         $article->user_id = Auth::user()->id;
         $article->localisation = $request->localisation;
@@ -69,18 +67,24 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        // dd($article);
-        $admins = User::where('id', '=', $article->user_id)->first(); 
-        return view('articles.voirplus', ['article' => $article, 'admins' => $admins]);
+        $this->authorize('viewany', $article);
+        return view('articles.voirplus', ['article' => $article]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function shows(User $user)
+
+    /**
+     * Display the specified resource.
+     */
+    public function shows()
     {
-        $articles= Article::paginate(5);
-        return view('articles.voirplus', ['articles' => $articles]);
+        $article = Article::all();
+
+        $articles = Article::paginate(5);
+        $this->authorize('view', $articles);
+        return view('articles.myposts', ['article' => $article]);
     }
 
     /**
@@ -88,7 +92,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
+
         $article = Article::find($id);
+        $this->authorize('view', $article);
         $admins = User::all();
         return view('articles.modifierArticles', compact('admins', 'article'));
     }
@@ -102,7 +108,7 @@ class ArticleController extends Controller
         $request->validate([
             'nom' => 'required',
             'categorie' => 'required',
-            'image' => 'required',
+            'image' => 'sometimes',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
@@ -120,7 +126,7 @@ class ArticleController extends Controller
         $article->statut = $request->statut;
         $article->user_id = Auth::user()->id;
         $article->update();
-        return redirect('/articles/' . $request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
     }
 
     /**
@@ -128,12 +134,9 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        
-        // dd($article);
         $article = Article::findOrfail($id);
+        $this->authorize('delete', $article);
         $article->delete();
-        return redirect('articles.listearticles')->with('success', 'Article supprimé avec succès');
+        return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
     }
-
-    
 }
