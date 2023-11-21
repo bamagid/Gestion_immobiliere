@@ -23,9 +23,9 @@ Route::get('/', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 
-Route::middleware('auth')->group(function () {
 
-   
+
+Route::middleware('auth')->group(function () {
     Route::get('/dashbord',[ArticleController::class,'shows']);
 
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);

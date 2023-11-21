@@ -77,9 +77,10 @@ class ArticleController extends Controller
      /**
      * Display the specified resource.
      */
-    public function shows(User $user)
-    {  
-        $article=Article::where('user_id',Auth::user()->id);
+    public function shows()
+    { 
+        $article=Article::all();
+        $this->authorize('view', Auth::user());
         return view('articles.myposts',['article'=>$article]);
     }
 
