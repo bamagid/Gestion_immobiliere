@@ -41,21 +41,16 @@
                             <div>
                                 <a href="/articles/{{ $article->id }}" class="btn btn-success me-3">voir plus</a>
                             </div>
-                            {{-- @can('create', $article->comments) --}}
+                            @if (Auth::user()->role==='user')
                             <form action="/commentaire" class="comment_class" method="post">
                                 @csrf
-                                <div class="row d-flex justify-content-center align-items-center">
-                                
                                 <input type="hidden" name="article_id" value="{{ $article->id }}">
                                 <input type="hidden" name="user_id" value='{{  Auth::user() ?  Auth::user()->id :'' }}'>
-                                <textarea type="text" class="input_comment mb-4" name="contenu"
-                                    placeholder="Taper ici votre commentaire..." rows="2">
-                                    </textarea>
-                                <button type="submit" class="btn btn-warning me-3" style="width: 150px;">Commenter</button>
-                                    
-                            </div>
+                                <input type="text" class="input_comment" name="contenu"
+                                    placeholder="Taper ici votre commentaire...">
+                                <button type="submit" class="card__btn">Commenter</button>
                             </form>
-                            {{-- @endcan --}}
+                            @endif
                         </div>
                     </div>
 
@@ -63,6 +58,6 @@
 
             </div>
         @endforeach
-        {{ $articles->links() }}
+          {{ $articles->links() }}
     </div>
 @endsection

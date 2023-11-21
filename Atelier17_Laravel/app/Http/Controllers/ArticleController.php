@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Article;
+use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +17,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        $commentaire=Commentaire::all();
         $articles = Article::paginate(10);
-        return view('articles.listearticles', ['articles' => $articles]);
+        return view('articles.listearticles', ['articles' => $articles,'commentaire'=>$commentaire]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Article $article)
     {
+        $this->authorize('View', $article);
         return view('articles.ajouter');
     }
 
@@ -33,9 +36,6 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-
-
-
         $request->validate([
             'nom' => 'required|max:255',
             'categorie' => 'required',
@@ -67,10 +67,10 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function shows($id)
     {
-        $article = Article::find($id);
-        return view('articles.voirplus', ['article' => $article]);
+        $articles= Article::find($id);
+        return view('articles.voirplus', ['articles' => $articles]);
     }
 
     /**
@@ -80,22 +80,21 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function shows()
+    public function show(Article $article)
     {
-        $article = Article::all();
-        $this->authorize('view', $article);
+        $this->authorize('View', $article);
         $articles = Article::paginate(5);
-        return view('articles.myposts', ['article' => $article]);
+        return view('articles.myposts', ['articles' => $articles]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($id,Article $article)
     {
 
+        $this->authorize('Viewany', $article);
         $article = Article::find($id);
-        $this->authorize('viewany', $article);
         $admins = User::all();
         return view('articles.modifierArticles', compact('admins', 'article'));
     }
@@ -134,10 +133,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id ,Article $article)
     {
-        $article = Article::findOrfail($id);
         $this->authorize('delete', $article);
+        $article = Article::findOrfail($id);
         $article->delete();
         return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
     }

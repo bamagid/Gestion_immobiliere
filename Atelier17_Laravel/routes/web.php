@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/articles/listearticles', [ArticleController::class, 'index']);
 
-Route::get('/articles/{id}',[ArticleController::class,'show']);
+Route::get('/articles/{id}',[ArticleController::class,'shows']);
 
 Route::get('/', function(){
     return view('welcome');
@@ -29,8 +29,13 @@ Route::get('/', function(){
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashbord',[ArticleController::class,'shows']);
 
+    Route::get('/profile/update', function(){
+        return view('profile.edit');
+    });
+
+    Route::get('/admin',[ArticleController::class,'show']);
+    
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);
     
