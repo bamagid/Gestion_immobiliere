@@ -129,7 +129,7 @@ class ArticleController extends Controller
         $article->statut = $request->statut;
         $article->user_id = Auth::user()->id;
         $article->update();
-        return redirect('/articles/' . $request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
     }
 
     /**
@@ -140,6 +140,6 @@ class ArticleController extends Controller
         $article = Article::findOrfail($id);
         $this->authorize('delete', $article);
         $article->delete();
-        return redirect('articles.listearticles')->with('success', 'Article supprimé avec succès');
+        return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
     }
 }

@@ -26,7 +26,7 @@
                         </p>
                         <div >
                             <a href="{{ '/article/modifier/' . $article->id }}" class="badge rounded-pill bg-dark">modifier</a>
-                            <a href="#" class="badge rounded-pill bg-primary">supprimer</a>
+                            <a href="/articles/deletearticle/{{ $article->id }}" class="badge rounded-pill bg-primary">supprimer</a>
                         </div>
                     </div>
                 </div>
