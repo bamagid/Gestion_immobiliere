@@ -6,36 +6,32 @@
             {{ session('statut') }}
         </div>
     @endif
+    <div class="container">
+        <div class="row mt-5 d-flex justify-content-center align-items-center">
+            <div class="col-lg-6 mt-4 mb-4 ">
+                <div class="card z-index-2" style="height:50vh;">
+                    <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                        <img src="{{ asset('images/' . $article->image) }}" style="width: 600px" alt="image de l'article">
+                        <div class="card-body">
+                            <h6 class="mb-0 ">{{ $article->nom }}</h6>
+                            <p class="text-sm ">{{ $article->description }}</p>
 
-    <div class="row   mt-2">
-
-        <div class="col-lg-6 mt-4 mb-4 ">
-
-            <div class="card z-index-2" style="height:60vh;">
-                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
-                    <img src="{{ asset('images/' . $article->image) }}" style="width: 600px" alt="image de l'article">
+                            <hr class="dark horizontal">
+                            <div class="d-flex">
+                                <i class="material-icons text-sm my-auto mt-1 me-2">schedule</i>
+                                <p class="text-sm"> {{ $article->statut }} </p>
+                            </div>
+                            <div class="mt-7 d-flex justify-content-center align-items-center">
+                                <a href="{{ '/article/modifier/' . $article->id }}"
+                                    class="btn btn-primary me-3">modifier</a>
+                                <a href="/articles/deletearticle/{{ $article->id }}"
+                                    class="btn btn-primary">Supprimer</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="card-body">
-
-
-        <h6 class="mb-0 ">{{ $article->nom }}</h6>
-        <p class="text-sm ">{{ $article->description }}</p>
-
-        <hr class="dark horizontal">
-        <div class="d-flex ">
-            <i class="material-icons text-sm my-auto me-1">schedule</i>
-            <p class="mb-0 text-sm"> {{ $article->statut }} </p>
-            <div>
-                <a href="{{ '/article/modifier/' . $article->id }}" class="badge rounded-pill bg-primary">modifier</a>
-                <a href="/articles/deletearticle/{{ $article->id }}" class="badge rounded-pill bg-primary">Supprimer</a>
-            </div>
-        </div>
-    </div>
-    </div>
-    </div>
     </div>
 
     <div>

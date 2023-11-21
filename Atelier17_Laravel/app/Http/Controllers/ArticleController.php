@@ -17,7 +17,7 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::paginate(10);
-        return view('welcome', ['articles' => $articles]);
+        return view('articles.listearticles', ['articles' => $articles]);
     }
     /**
      * Show the form for creating a new resource.
