@@ -18,8 +18,7 @@ class Commentaire extends Model
         'contenu',
         'user_id',
         'admin_id',
-        'article_id',
-        'is_delete',
+        'article_id'
     ];
 
 }

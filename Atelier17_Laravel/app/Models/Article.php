@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     use HasFactory;
-    public function admin(){
-        return $this->belongsTo(Admin::class);
+    public function user(){
+        return $this->belongsTo(User::class);
     }
     public function comments(){
         return $this->hasmany(Commentaire::class);

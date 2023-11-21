@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Commentaire;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
@@ -16,11 +17,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::get('/articles', [ArticleController::class, 'index']);
+Route::get('/', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 
@@ -36,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/newarticle', [ArticleController::class, 'create']);
     Route::post('/addarticle', [ArticleController::class, 'store']);
     // Supprimer Bien 
-    Route::delete('/articles/deletearticle/{id}', [ArticleController::class, 'destroy']);
+    Route::delete('/deletearticle/{id}', [Article_controller::class, 'destroy']);
     
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
