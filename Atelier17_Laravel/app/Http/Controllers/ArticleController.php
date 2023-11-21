@@ -19,7 +19,7 @@ class ArticleController extends Controller
         $articles = Article::paginate(10);
         return view('articles.listearticles', ['articles' => $articles]);
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -34,7 +34,7 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
 
-       
+
 
         $request->validate([
             'nom' => 'required|max:255',
@@ -69,25 +69,25 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $article=Article::find($id);
+        $article = Article::find($id);
         $this->authorize('viewany', $article);
-        return view('articles.voirplus',['article'=>$article]);
+        return view('articles.voirplus', ['article' => $article]);
     }
 
     /**
      * Display the specified resource.
      */
 
-     /**
+    /**
      * Display the specified resource.
      */
     public function shows()
-    { 
-        $article=Article::all();
-        
-        $articles= Article::paginate(5);
+    {
+        $article = Article::all();
+
+        $articles = Article::paginate(5);
         $this->authorize('view', $articles);
-        return view('articles.myposts',['article'=>$article]);
+        return view('articles.myposts', ['article' => $article]);
     }
 
     /**
@@ -95,12 +95,11 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        
-        $article=Article::find($id);
+
+        $article = Article::find($id);
         $this->authorize('update', $article);
-        $admins=User::all();
-        return view('articles.modifierArticles',compact('admins','article'));
-      
+        $admins = User::all();
+        return view('articles.modifierArticles', compact('admins', 'article'));
     }
 
     /**
@@ -108,17 +107,16 @@ class ArticleController extends Controller
      */
     public function update(Request $request)
     {
-        
+
         $request->validate([
             'nom' => 'required',
             'categorie' => 'required',
-            'image' => 'required',
+            'image' => 'sometimes',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
         ]);
-        $article= Article::find($request->id);
-        $this->authorize('update', $article);
+        $article = Article::find($request->id);
         $article->nom = $request->nom;
         if ($request->file('image')) {
             $file = $request->file('image');
@@ -143,8 +141,5 @@ class ArticleController extends Controller
         $this->authorize('delete', $article);
         $article->delete();
         return redirect('articles.listearticles')->with('success', 'Article supprimé avec succès');
-        
     }
-
-    
 }
