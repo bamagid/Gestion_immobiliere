@@ -20,7 +20,7 @@ class ArticlePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Article $article): Response
+    public function view(User $user): Response
     {
         return $user->role==='admin'
         ? Response::allow()

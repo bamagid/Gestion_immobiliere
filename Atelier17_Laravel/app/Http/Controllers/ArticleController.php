@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Article;
 use App\Models\User;
+use Illuminate\Auth\Access\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,6 +72,15 @@ class ArticleController extends Controller
         $this->authorize('viewany', $article);
         $admins =User::where('id','=',$article->user_id)->first();
         return view('articles.voirplus',['article'=>$article, 'admins'=>$admins]);
+    }
+
+     /**
+     * Display the specified resource.
+     */
+    public function shows(User $user)
+    {  
+        $article=Article::where('user_id',Auth::user()->id);
+        return view('articles.myposts',['article'=>$article]);
     }
 
     /**
