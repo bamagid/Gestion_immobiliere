@@ -132,7 +132,7 @@ class ArticleController extends Controller
         // dd($article);
         $article = Article::findOrfail($id);
         $article->delete();
-        return redirect('/')->with('success', 'Article supprimé avec succès');
+        return redirect('articles.listearticles')->with('success', 'Article supprimé avec succès');
     }
 
     
