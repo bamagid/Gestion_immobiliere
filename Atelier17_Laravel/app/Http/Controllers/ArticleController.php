@@ -70,7 +70,6 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        $this->authorize('viewany', $article);
         return view('articles.voirplus', ['article' => $article]);
     }
 
@@ -96,7 +95,7 @@ class ArticleController extends Controller
     {
 
         $article = Article::find($id);
-        $this->authorize('view', $article);
+        $this->authorize('viewany', $article);
         $admins = User::all();
         return view('articles.modifierArticles', compact('admins', 'article'));
     }
@@ -116,6 +115,7 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
         $article = Article::find($request->id);
+        $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
             $file = $request->file('image');
