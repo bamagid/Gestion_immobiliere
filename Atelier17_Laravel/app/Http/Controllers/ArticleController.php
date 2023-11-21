@@ -92,24 +92,25 @@ class ArticleController extends Controller
       
         $request->validate([
             'nom' => 'required',
+            'categorie' => 'required',
             'image' => 'required',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
         ]);
-       
-        
-        // $article = new Article();
-        $article= Article::find($request->id);
-        $article->nom = $request->nom;
-        $article->description = $request->description;
-        $article->image = $request->image;
-        $article->localisation = $request->localisation;
-        $article->statut = $request->statut;
-        $article->admin_id =  Auth::user()->id;
-        $article->update();
-    
-
+$article = Article::find($request->id);
+$article->nom = $request->nom;
+if($request->file('image')){
+    $file= $request->file('image');
+    $filename= date('YmdHi').$file->getClientOriginalName();
+    $file-> move(public_path('images'),$filename);
+    $article['image']=$filename;
+}
+$article->description = $request->description;
+$article->localisation = $request->localisation;
+$article->statut = $request->statut;
+$article->user_id = Auth::user()->id;
+$article->update();
         return redirect('/articles/'. $request->id)->with('statut', "Bien Immobilier modifier avec succès");
     }
 
