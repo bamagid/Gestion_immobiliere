@@ -30,8 +30,10 @@ class CommentaireController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    { 
+    {  
+        
         $comments= new Commentaire();
+        $this->authorize('create', $comments);
         $comments->article_id=$request->article_id;
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
@@ -66,9 +68,11 @@ class CommentaireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(User $user,Request $request)
     {
+        
         $comments=Commentaire::findOrFail($request->id);
+        $this->authorize('update', $comments);
         $comments->article_id=$request->article_id;
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
@@ -82,9 +86,10 @@ class CommentaireController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id ,User $user)
     {
         $commentaire=Commentaire::findOrFail($id);
+        $this->authorize('delete', $commentaire);
         $commentaire->delete();
         return back();
     }

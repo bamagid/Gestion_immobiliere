@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-         $article= Article::all();
+        $article= Article::all();
         return view('welcome',['article'=>$article]);
     }
     /**
@@ -23,7 +23,6 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        // return 'SALAM';
         return view('articles.ajouter');
     }
 
@@ -32,7 +31,7 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-   
+       
 
         $request->validate([
             'nom' => 'required|max:255',
@@ -43,6 +42,7 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
         $article = new Article();
+        $this->authorize('create', $article);
         $article->nom = $request->nom;
         $article->categorie = $request->categorie;
         if($request->file('image')){
@@ -51,7 +51,6 @@ class ArticleController extends Controller
             $file-> move(public_path('images'),$filename);
             $article['image']=$filename;
         }
-        // dd($filename);
         $article->description = $request->description;
         $article->user_id = Auth::user()->id;
         $article->localisation = $request->localisation;
@@ -67,8 +66,9 @@ class ArticleController extends Controller
      * Display the specified resource.
      */
     public function show($id)
-    {
+    {  
         $article=Article::find($id);
+        $this->authorize('viewany', $article);
         $admins =User::where('id','=',$article->user_id)->first();
         return view('articles.voirplus',['article'=>$article, 'admins'=>$admins]);
     }
@@ -78,7 +78,9 @@ class ArticleController extends Controller
      */
     public function edit( $id)
     {
+        
         $article=Article::find($id);
+        $this->authorize('update', $article);
         $admins=User::all();
         return view('articles.modifierArticles',compact('admins','article'));
       
@@ -89,7 +91,7 @@ class ArticleController extends Controller
      */
     public function update(Request $request)
     {
-      
+        
         $request->validate([
             'nom' => 'required',
             'image' => 'required',
@@ -97,10 +99,8 @@ class ArticleController extends Controller
             'localisation' => 'required',
             'statut' => 'required',
         ]);
-       
-        
-        // $article = new Article();
         $article= Article::find($request->id);
+        $this->authorize('update', $article);
         $article->nom = $request->nom;
         $article->description = $request->description;
         $article->image = $request->image;
@@ -118,6 +118,6 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $this->authorize('delete', Article::class);
     }
 }
