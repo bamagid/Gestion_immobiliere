@@ -18,7 +18,7 @@
             <p class="mb-0 text-sm"> {{$article->statut}} </p>
           </div>
           <div class="card-body">
-            <a href="{{'/articles/'. $article->id}}" class="badge rounded-pill bg-primary">voir plus</a>
+            <a href="/articles/{{$article->id}}" class="badge rounded-pill bg-primary">voir plus</a>
             <a href="#" class="badge rounded-pill bg-dark">Commenter</a>
           </div>
         </div>

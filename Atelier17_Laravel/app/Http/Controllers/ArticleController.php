@@ -69,7 +69,8 @@ class ArticleController extends Controller
     public function show($id)
     {
         $article = Article::find($id);
-        $admins = User::where('id', '=', $article->user_id)->first();
+        // dd($article);
+        $admins = User::where('id', '=', $article->user_id)->first(); 
         return view('articles.voirplus', ['article' => $article, 'admins' => $admins]);
     }
 
@@ -125,17 +126,14 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Article $article)
+    public function destroy($id)
     {
         
         // dd($article);
-        $article = Article::findOrfail($article);
+        $article = Article::findOrfail($id);
         $article->delete();
-        return Redirect::to('/articles');
-        // return redirect('/articles')->with('success', 'Article supprimé avec succès');
+        return redirect('/')->with('success', 'Article supprimé avec succès');
     }
 
     
 }
-// $article::where('user_id', Auth::user()->id)->delete();
-// 
