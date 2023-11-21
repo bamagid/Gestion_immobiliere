@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row   mt-2" >
-  @foreach ($article as $article )
+  @foreach ($articles as $article )
     <div class="col-lg-6 mt-4 mb-4 " >
      
       <div class="card z-index-2" style="height:60vh;">
@@ -27,6 +27,7 @@
      
     </div>
     @endforeach
+    {{$articles->links()}}
   </div>
 
 
