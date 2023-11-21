@@ -19,6 +19,7 @@ class ArticleController extends Controller
         $articles = Article::paginate(10);
         return view('articles.listearticles', ['articles' => $articles]);
     }
+    
     /**
      * Show the form for creating a new resource.
      */
@@ -70,8 +71,7 @@ class ArticleController extends Controller
     {
         $article=Article::find($id);
         $this->authorize('viewany', $article);
-        $admins =User::where('id','=',$article->user_id)->first();
-        return view('articles.voirplus',['article'=>$article, 'admins'=>$admins]);
+        return view('articles.voirplus',['article'=>$article]);
     }
 
     /**

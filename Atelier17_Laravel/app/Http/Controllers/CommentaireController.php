@@ -38,7 +38,7 @@ class CommentaireController extends Controller
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
         if ($comments->save()) {
-           return redirect('/')->with('status','Bravo le commentaire est ajouté!');
+           return redirect('/articles/listearticles')->with('status','Bravo le commentaire est ajouté!');
         }else{
             return back()->withInput();
         }
@@ -61,7 +61,7 @@ class CommentaireController extends Controller
         $commentaire=Commentaire::findorFail($id);
         $article=Article::find($commentaire->article_id);
         return view('articles.voirplus',compact('commentaire','article','ok'));
-        return redirect('/articles/'.$commentaire->article_id);
+        return redirect("/articles/$commentaire->article_id");
         
     }
 
@@ -77,7 +77,7 @@ class CommentaireController extends Controller
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
         if ($comments->save()) {
-           return redirect('/articles/'.$request->article_id)->with('status','Bravo le commentaire est modifié avec succes!');
+           return redirect("/articles/$request->article_id")->with('status','Bravo le commentaire est modifié avec succes!');
         }else{
             return back()->withInput();
         }

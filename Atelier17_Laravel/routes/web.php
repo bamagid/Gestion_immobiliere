@@ -23,6 +23,9 @@ Route::get('/articles/listearticles', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'show']);
 
+Route::get('/', function(){
+    return view('welcome');
+});
 
 
 Route::middleware('auth')->group(function () {
@@ -36,7 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/addarticle', [ArticleController::class, 'store']);
     // Supprimer Bien 
     Route::get('/articles/deletearticle/{id}', [ArticleController::class, 'destroy']);
-    
+
     Route::post('/commentaire', [CommentaireController::class, 'store']);
     Route::get('/articles/commentaire/{id}', [CommentaireController::class, 'edit']);
     Route::post('/articles/commentaireupdate/{id}', [CommentaireController::class, 'update']);
