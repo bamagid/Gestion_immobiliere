@@ -23,7 +23,7 @@
                     <div
                         class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent
                     d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('images/' . $article->image) }}" style="width: 400px" alt="image de l'article">
+                        <img src="{{ asset('images/' . $article->image) }}" style="width: 400px;max-width: 100%; max-height: 100%;" alt="image de l'article">
                     </div>
                     <div class="card-body mx-6">
                         <h6 class="mb-0 ">{{ $article->nom }}</h6>

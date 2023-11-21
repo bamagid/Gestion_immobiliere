@@ -55,8 +55,9 @@ class CommentaireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($id,Commentaire $comment)
     {
+        $this->authorize('update', $comment);
          $ok='ok';
         $commentaire=Commentaire::findorFail($id);
         $article=Article::find($commentaire->article_id);

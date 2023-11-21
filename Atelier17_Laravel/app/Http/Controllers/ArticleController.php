@@ -23,8 +23,9 @@ class ArticleController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Article $article)
     {
+        $this->authorize('View', $article);
         return view('articles.ajouter');
     }
 
@@ -64,10 +65,9 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function shows($id)
     {
         $article = Article::find($id);
-        $this->authorize('viewany', $article);
         return view('articles.voirplus', ['article' => $article]);
     }
 
@@ -78,23 +78,22 @@ class ArticleController extends Controller
     /**
      * Display the specified resource.
      */
-    public function shows()
+    public function show(Article $article)
     {
+        $this->authorize('View', $article);
         $article = Article::all();
-
         $articles = Article::paginate(5);
-        $this->authorize('view', $articles);
-        return view('articles.myposts', ['article' => $article]);
+        return view('articles.myposts', ['articles' => $articles]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($id,Article $article)
     {
 
+        $this->authorize('Viewany', $article);
         $article = Article::find($id);
-        $this->authorize('view', $article);
         $admins = User::all();
         return view('articles.modifierArticles', compact('admins', 'article'));
     }
@@ -114,6 +113,7 @@ class ArticleController extends Controller
             'statut' => 'required',
         ]);
         $article = Article::find($request->id);
+        $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
             $file = $request->file('image');
@@ -132,10 +132,10 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($id ,Article $article)
     {
-        $article = Article::findOrfail($id);
         $this->authorize('delete', $article);
+        $article = Article::findOrfail($id);
         $article->delete();
         return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
     }
