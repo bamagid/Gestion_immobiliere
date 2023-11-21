@@ -84,9 +84,8 @@ class ArticleController extends Controller
     public function shows()
     {
         $article = Article::all();
-
+        $this->authorize('view', $article);
         $articles = Article::paginate(5);
-        $this->authorize('view', $articles);
         return view('articles.myposts', ['article' => $article]);
     }
 
@@ -97,7 +96,7 @@ class ArticleController extends Controller
     {
 
         $article = Article::find($id);
-        $this->authorize('update', $article);
+        $this->authorize('view', $article);
         $admins = User::all();
         return view('articles.modifierArticles', compact('admins', 'article'));
     }
