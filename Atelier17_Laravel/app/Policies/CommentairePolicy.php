@@ -27,7 +27,7 @@ class CommentairePolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): Response
+    public function create(User $user, Commentaire $commentaire): Response
     {
         return $user->role==='user' 
         ? Response::allow()

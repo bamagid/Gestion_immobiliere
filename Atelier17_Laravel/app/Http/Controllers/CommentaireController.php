@@ -38,7 +38,7 @@ class CommentaireController extends Controller
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
         if ($comments->save()) {
-           return redirect('/articles/listearticles')->with('status','Bravo le commentaire est ajouté!');
+           return redirect("/articles/$request->article_id")->with('status','Bravo le commentaire est ajouté!');
         }else{
             return back()->withInput();
         }
@@ -55,13 +55,13 @@ class CommentaireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,Commentaire $comment)
+    public function edit($id,User $user, Commentaire $comment)
     {
-        $this->authorize('update', $comment);
-         $ok='ok';
+        $ok='ok';
         $commentaire=Commentaire::findorFail($id);
-        $article=Article::find($commentaire->article_id);
-        return view('articles.voirplus',compact('commentaire','article','ok'));
+        $this->authorize('update', $commentaire);
+        $articles=Article::find($commentaire->article_id);
+        return view('articles.voirplus',compact('commentaire','articles','ok'));
         return redirect("/articles/$commentaire->article_id");
         
     }
@@ -92,6 +92,6 @@ class CommentaireController extends Controller
         $commentaire=Commentaire::findOrFail($id);
         $this->authorize('delete', $commentaire);
         $commentaire->delete();
-        return back();
+        return back()->with('status','Bravo le commentaire a été supprimer avec succés!');
     }
 }

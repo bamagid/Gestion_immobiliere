@@ -40,11 +40,10 @@
         <div class="sidenav-header">
             <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
                 aria-hidden="true" id="iconSidenav"></i>
-            <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/material-dashboard/pages/dashboard "
-                target="_blank">
+            <div class="navbar-brand m-0">
                 <img src="{{ asset('/assets/img/logo-ct.png') }}" class="navbar-brand-img h-100" alt="main_logo">
                 <span class="ms-1 font-weight-bold text-white">JYM Immo</span>
-            </a>
+            </div>
         </div>
         <hr class="horizontal light mt-0 mb-2">
         <div class="collapse navbar-collapse  w-auto  max-height-vh-100" id="sidenav-collapse-main">
@@ -53,9 +52,9 @@
                     <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages
                     </h6>
                 </li>
-                @if (Auth::user() || isset($admin))
+                @if (Auth::user())
                     <li class="nav-item">
-                        <a class="nav-link text-white" href="{{ route('profile.edit') }}">
+                        <a class="nav-link text-white" href="/profile/update">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                                 <i class="material-icons opacity-10">person</i>
                             </div>
@@ -63,7 +62,7 @@
                         </a>
                     </li>
                 @endif
-                @if (!Auth::user() && empty($admin))
+                @if (!Auth::user())
                     <li class="nav-item">
                         <a class="nav-link text-white " href="/login">
                             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -109,23 +108,27 @@
 
                     </a>
                 </li>
-                
+                @if (Auth::user() && Auth::user()->role==='admin')
                 <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-primary" href="{{ url('/newarticle') }}">
+                    <a class="nav-link text-white active bg-gradient-warning" href="{{ url('/newarticle') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="material-icons opacity-10">assignment</i>
                         </div>
                         <span class="nav-link-text ms-1">Ajouter un bien</span>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link text-white active bg-gradient-info" href="{{ url('/admin') }}">
-                        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="material-icons opacity-10">dashboard</i>
-                        </div>
-                        <span class="nav-link-text ms-1">Mes biens</span>
-                    </a>
-                </li>
+                @endif
+               @if (Auth::user() &&  Auth::user()->role==='admin')
+                   
+               <li class="nav-item">
+                   <a class="nav-link text-white active bg-gradient-info" href="{{ url('/admin') }}">
+                    <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="material-icons opacity-10">dashboard</i>
+                    </div>
+                    <span class="nav-link-text ms-1">Mes biens</span>
+                </a>
+            </li>
+            @endif
             </ul>
          </div>
         </div>
@@ -150,8 +153,6 @@
                                 <span class="d-sm-inline d-none">
                                     @if (Auth::user())
                                         {{ Auth::user()->name }}
-                                    @elseif (isset($admin))
-                                        {{ $admin->name }}
                                     @else
                                         pas connecté
                                     @endif
@@ -176,34 +177,6 @@
         </nav>
         <!-- End Navbar -->
         @yield('content')
-
-
-        {{-- footer --}}
-        {{-- <div class="container-fluid py-4">
-      <footer class="footer py-4 fixed-bottom " style="margin-left:250px ;margin-right:50px;">
-        <div class="container-fluid">
-          <div class="row align-items-center justify-content-lg-between">
-            <div class="col-lg-4 mb-lg-0 mb-4">
-              <div class="copyright text-center text-sm text-muted text-lg-start">
-                © <script>
-                  document.write(new Date().getFullYear())
-                </script>,
-                made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                for a better web.
-              </div>
-            </div>
-            <div class="col-lg-3">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-              <li class="nav-item">
-                <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Distributed By: ThemeWagon</a>
-              </li>
-            </ul>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div> --}}
     </main>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-dark position-fixed px-3 py-2">

@@ -1,5 +1,12 @@
 @extends('layouts.template')
 @section('content')
+@if (session('status'))
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+</div>
+@endif
     <form action="/addarticle" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="container col-md-6 border">

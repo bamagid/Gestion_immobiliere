@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Article;
+use App\Models\Commentaire;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -16,7 +18,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::paginate(10);
+        $articles = Article::paginate(6);
         return view('articles.listearticles', ['articles' => $articles]);
     }
 
@@ -58,8 +60,7 @@ class ArticleController extends Controller
         $article->statut = $request->statut;
 
         $article->save();
-
-        return redirect('/newarticle')->with('statut', "Bien Immobilier enregistré avec succès");
+        return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
     }
 
     /**
@@ -67,8 +68,8 @@ class ArticleController extends Controller
      */
     public function shows($id)
     {
-        $article = Article::find($id);
-        return view('articles.voirplus', ['article' => $article]);
+        $articles= Article::find($id);
+        return view('articles.voirplus', ['articles' => $articles]);
     }
 
     /**
@@ -81,8 +82,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $this->authorize('View', $article);
-        $article = Article::all();
-        $articles = Article::paginate(5);
+        $articles = Article::paginate(6);
         return view('articles.myposts', ['articles' => $articles]);
     }
 
@@ -116,6 +116,9 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
+            if (File::exists(public_path('images/' . $article->image))) {
+                File::delete(public_path('images/' . $article->image));
+            }
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
@@ -137,6 +140,6 @@ class ArticleController extends Controller
         $this->authorize('delete', $article);
         $article = Article::findOrfail($id);
         $article->delete();
-        return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
+        return redirect('/articles/listearticles')->with('status', 'Article supprimé avec succès');
     }
 }

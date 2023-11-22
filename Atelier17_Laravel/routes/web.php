@@ -27,10 +27,15 @@ Route::get('/', function(){
     return view('welcome');
 });
 
-Route::get('/admin',[ArticleController::class,'show']);
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('/profile/update', function(){
+        return view('profile.edit');
+    });
+
+    Route::get('/admin',[ArticleController::class,'show']);
+    
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);
     
