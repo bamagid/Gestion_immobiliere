@@ -1,7 +1,13 @@
 @extends('layouts.template')
 @section('content')
+@if (session('status'))
+<div class="row d-flex justify-content-center align-items-center">
+    <div class="alert alert-success">
+        {{ session('status') }}
+    </div>
+</div>
+@endif
     <form action="{{ '/articles/modifierArticle/ ' . $article->id }}"method="post" enctype="multipart/form-data">
-        {{-- @method("PATCH") --}}
         @csrf
         <div class="container col-md-6 border">
             <h4 class="text-center">
@@ -16,7 +22,6 @@
                 <div class="input-group input-group-outline my-3">
                     <select style="width: 500px;" value="{{ $article->categorie }}" name="categorie"
                         class="pe-2 btn btn-sm btn-outline-primary " aria-label="Default select example">
-                        {{-- <option selected>Categorie</option> --}}
                         <option value="luxe">Luxe</option>
                         <option value="moyen">Moyen</option>
                         <option value="abordable">Abordable</option>

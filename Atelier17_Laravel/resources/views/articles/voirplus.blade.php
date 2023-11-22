@@ -7,7 +7,6 @@
             </div>
         </div>
     @endif
-
     @if (session('status'))
         <div class="row d-flex justify-content-center align-items-center">
             <div class="alert alert-success">

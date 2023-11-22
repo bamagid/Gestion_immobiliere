@@ -18,7 +18,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::paginate(10);
+        $articles = Article::paginate(6);
         return view('articles.listearticles', ['articles' => $articles]);
     }
 
@@ -60,8 +60,7 @@ class ArticleController extends Controller
         $article->statut = $request->statut;
 
         $article->save();
-
-        return redirect('/newarticle')->with('statut', "Bien Immobilier enregistré avec succès");
+        return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
     }
 
     /**
@@ -83,7 +82,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $this->authorize('View', $article);
-        $articles = Article::paginate(5);
+        $articles = Article::paginate(6);
         return view('articles.myposts', ['articles' => $articles]);
     }
 
@@ -141,6 +140,6 @@ class ArticleController extends Controller
         $this->authorize('delete', $article);
         $article = Article::findOrfail($id);
         $article->delete();
-        return redirect('/articles/listearticles')->with('success', 'Article supprimé avec succès');
+        return redirect('/articles/listearticles')->with('status', 'Article supprimé avec succès');
     }
 }

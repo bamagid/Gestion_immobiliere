@@ -38,7 +38,7 @@ class CommentaireController extends Controller
         $comments->contenu=$request->contenu;
         $comments->user_id=Auth::user()->id;
         if ($comments->save()) {
-           return redirect('/articles/listearticles')->with('status','Bravo le commentaire est ajouté!');
+           return redirect("/articles/$request->article_id")->with('status','Bravo le commentaire est ajouté!');
         }else{
             return back()->withInput();
         }
@@ -92,6 +92,6 @@ class CommentaireController extends Controller
         $commentaire=Commentaire::findOrFail($id);
         $this->authorize('delete', $commentaire);
         $commentaire->delete();
-        return back();
+        return back()->with('status','Bravo le commentaire a été supprimer avec succés!');
     }
 }
