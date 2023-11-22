@@ -41,7 +41,7 @@
                             <div>
                                 <a href="/articles/{{ $article->id }}" class="btn btn-success me-3">voir plus</a>
                             </div>
-                            @if (Auth::user()->role==='user')
+                            @if (Auth::user() && Auth::user()->role==='user')
                             <form action="/commentaire" class="comment_class" method="post">
                                 @csrf
                                 <div class="row d-flex justify-content-center align-items-center">

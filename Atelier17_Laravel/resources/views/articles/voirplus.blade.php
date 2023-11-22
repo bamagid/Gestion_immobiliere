@@ -37,7 +37,7 @@
                             <p class="text-sm"> {{ $articles->localisation }} </p>
                         </div>
                         <div class=" d-flex justify-content-center align-items-center">
-                            @if (Auth::user()->role === 'admin')
+                            @if (Auth::user() && Auth::user()->role === 'admin')
                                 <a href="{{ '/article/modifier/' . $articles->id }}" class="btn btn-success me-3">Modifier
                                     Info Bien</a>
                                 <a href="/articles/deletearticle/{{ $articles->id }}" class="btn btn-danger">Supprimer le
@@ -73,12 +73,12 @@
                                                 {{ $comment->created_at }}</div>
                                         </div>
                                         <div>
-                                            @if (Auth::user()->id === $comment->user_id)
+                                            @if (Auth::user() && Auth::user()->id === $comment->user_id)
                                                 <a href="/articles/commentaire/{{ $comment->id }}"
                                                     class="btn btn-info me-3"style="font-size: 15px;"><i
                                                         class="fa-solid fa-pen-to-square icon-large"></i></a>
                                             @endif
-                                            @if (Auth::user()->role === 'admin' || Auth::user()->id === $comment->user_id)
+                                            @if ((Auth::user() && Auth::user()->role === 'admin') || (Auth::user() &&  Auth::user()->id === $comment->user_id))
                                                 <a href="/articles/deletecommentaire/{{ $comment->id }}"
                                                     class="btn btn-danger" style="font-size: 15px; "><i
                                                         class="fa-solid fa-delete-left"></i></a>
