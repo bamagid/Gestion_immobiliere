@@ -57,9 +57,9 @@ class CommentaireController extends Controller
      */
     public function edit($id,User $user, Commentaire $comment)
     {
+        $this->authorize('update', $comment);
         $ok='ok';
         $commentaire=Commentaire::findorFail($id);
-        $this->authorize('update', $commentaire);
         $articles=Article::find($commentaire->article_id);
         return view('articles.voirplus',compact('commentaire','articles','ok'));
         return redirect("/articles/$commentaire->article_id");

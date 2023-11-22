@@ -19,9 +19,11 @@ class CommentairePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Commentaire $commentaire): bool
+    public function view(User $user, Commentaire $commentaire): Response
     {
-        return true;
+        return $user->id===$commentaire->user_id
+        ? Response::allow()
+                : Response::deny('Vous n\'avez pas les droits pour voir cette page');
     }
 
     /**
