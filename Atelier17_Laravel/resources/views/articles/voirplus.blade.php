@@ -10,7 +10,7 @@
 
     @if (session('status'))
         <div class="row d-flex justify-content-center align-items-center">
-            <div class="alert alert-success">
+            <div class="alert alert-success col-lg-4">
                 {{ session('status') }}
             </div>
         </div>
@@ -23,7 +23,8 @@
                     <div
                         class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent
                     d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('images/' . $article->image) }}" style="width: 400px;max-width: 100%; max-height: 100%;" alt="image de l'article">
+                        <img src="{{ asset('images/' . $article->image) }}"
+                            style="width: 400px;max-width: 100%; max-height: 100%;" alt="image de l'article">
                     </div>
                     <div class="card-body mx-6">
                         <h6 class="mb-0 ">{{ $article->nom }}</h6>
@@ -37,9 +38,11 @@
                             <p class="text-sm"> {{ $article->localisation }} </p>
                         </div>
                         <div class=" d-flex justify-content-center align-items-center">
-                            <a href="{{ '/article/modifier/' . $article->id }}" class="btn btn-success me-3">Modifier Info Bien</a>
-                            <a href="/articles/deletearticle/{{ $article->id }}" class="btn btn-danger">Supprimer le Bien</a>
-                            
+                            <a href="{{ '/article/modifier/' . $article->id }}" class="btn btn-success me-3">Modifier Info
+                                Bien</a>
+                            <a href="/articles/deletearticle/{{ $article->id }}" class="btn btn-danger">Supprimer le
+                                Bien</a>
+
                             @if (isset($ok) && $commentaire->user_id === Auth::user()->id)
                                 <form action="{{ url('/articles/commentaireupdate/' . $commentaire->id) }}"
                                     class="comment_class" method="post">
@@ -56,26 +59,33 @@
                     </div>
                     <hr>
                     <h3 style="text-align: center">Commentaires</h3>
-                    <div class="comment mx-10 row d-flex justify-content-center align-items-center">
+                    <div class="row d-flex justify-content-center align-items-center mb-5">
                         @forelse ($article->comments as $comment)
-                            <div class="comment mx-10 " >
-                                <div class="text-muted mb-2">Auteur : {{ $comment->user->name }}</div>
-                                <div class="mb-2">Contenu : {{ $comment->contenu }}</div>
-                                <div class="text-muted mb-2"> Date: {{ $comment->created_at }}</div>
-                                
-                                <a href="/articles/commentaire/{{ $comment->id }}" class="btn btn-success"style="font-size: 15px;"><i class="fa-solid fa-pen-to-square icon-large"></i></a>
-                                <a href="/articles/deletecommentaire/{{ $comment->id }}"
-                                    class="btn btn-danger" style="font-size: 15px; "><i class="fa-solid fa-delete-left"></i></a>
-
-                            </div>
+                            <div class="col-md-6 ">
+                                <div class="card mx-5 my-2">
+                                    <div class="card-body d-flex justify-content-between">
+                                        <div>
+                                            <div class="text mb-2 me-5"><i class="fa-solid fa-user me-2"></i> <b> {{ $comment->user->name }} </b></div>
+                                            <div class="mb-2"><i class="fa-solid fa-message me-2"></i> {{ $comment->contenu }}</div>
+                                            <div class="text mb-2"><i class="fa-solid fa-calendar me-2"></i>  {{ $comment->created_at }}</div>
+                                        </div>
+                                        <div>
+                                            <a href="/articles/commentaire/{{ $comment->id }}"
+                                                class="btn btn-info me-3"style="font-size: 15px;"><i
+                                                    class="fa-solid fa-pen-to-square icon-large"></i></a>
+                                            <a href="/articles/deletecommentaire/{{ $comment->id }}" class="btn btn-danger"
+                                                style="font-size: 15px; "><i class="fa-solid fa-delete-left"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @empty
-                            <div class="text-muted ms-12 mb-5 mt-0">
-                                Aucun commentaire pour ce bien immobillier
-                            </div>
+                            <div class="text-muted ms-12 mb-5 mt-0">Aucun commentaire pour ce bien immobillier</div>
                         @endforelse
                     </div>
+                    
                 </div>
             </div>
         </div>
-    @endsection
+    </div>
+@endsection
