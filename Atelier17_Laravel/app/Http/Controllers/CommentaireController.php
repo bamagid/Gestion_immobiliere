@@ -55,13 +55,13 @@ class CommentaireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,Commentaire $comment)
+    public function edit($id,User $user, Commentaire $comment)
     {
-        $this->authorize('update', $comment);
-         $ok='ok';
+        $ok='ok';
         $commentaire=Commentaire::findorFail($id);
-        $article=Article::find($commentaire->article_id);
-        return view('articles.voirplus',compact('commentaire','article','ok'));
+        $this->authorize('update', $commentaire);
+        $articles=Article::find($commentaire->article_id);
+        return view('articles.voirplus',compact('commentaire','articles','ok'));
         return redirect("/articles/$commentaire->article_id");
         
     }

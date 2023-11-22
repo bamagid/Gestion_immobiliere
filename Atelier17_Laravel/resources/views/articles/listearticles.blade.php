@@ -14,7 +14,7 @@
                     <div
                         class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent
                                         d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('images/' . $article->image) }}" style="width:400px" alt="image de l'article">
+                        <img src="{{ asset('images/' . $article->image) }}" style="width: 100%; height: 350px; object-fit: cover;object-position: center center;" alt="image de l'article">
                     </div>
                     <div class="card-body" style="overflow: hidden;">
                         <h6 class="mb-0 ">{{ $article->nom }}</h6>
@@ -41,7 +41,7 @@
                             <div>
                                 <a href="/articles/{{ $article->id }}" class="btn btn-success me-3">voir plus</a>
                             </div>
-                            {{-- @can('create', $article->comments) --}}
+                            @if (Auth::user()->role==='user')
                             <form action="/commentaire" class="comment_class" method="post">
                                 @csrf
                                 <div class="row d-flex justify-content-center align-items-center">
@@ -55,7 +55,7 @@
                                     
                             </div>
                             </form>
-                            {{-- @endcan --}}
+                            @endif
                         </div>
                     </div>
 
@@ -63,6 +63,6 @@
 
             </div>
         @endforeach
-        {{ $articles->links() }}
+          {{ $articles->links() }}
     </div>
 @endsection

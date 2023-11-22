@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Article;
+use App\Models\Commentaire;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -67,8 +68,8 @@ class ArticleController extends Controller
      */
     public function shows($id)
     {
-        $article = Article::find($id);
-        return view('articles.voirplus', ['article' => $article]);
+        $articles= Article::find($id);
+        return view('articles.voirplus', ['articles' => $articles]);
     }
 
     /**
@@ -81,7 +82,6 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $this->authorize('View', $article);
-        $article = Article::all();
         $articles = Article::paginate(5);
         return view('articles.myposts', ['articles' => $articles]);
     }
