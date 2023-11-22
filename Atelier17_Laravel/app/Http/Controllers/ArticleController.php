@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Article;
 use App\Models\Commentaire;
 use App\Models\User;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -116,6 +117,9 @@ class ArticleController extends Controller
         $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
+            if (File::exists(public_path('images/' . $article->image))) {
+                File::delete(public_path('images/' . $article->image));
+            }
             $file = $request->file('image');
             $filename = date('YmdHi') . $file->getClientOriginalName();
             $file->move(public_path('images'), $filename);
