@@ -21,11 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be idden for serialization.
      *
      * @var array<int, string>
      */
@@ -42,7 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get all comments made by this user.
+     */
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Get the role associated with this user.
+     */
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 }
