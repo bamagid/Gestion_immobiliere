@@ -35,7 +35,7 @@
                             <p class="text-sm"> {{ $articles->localisation }} </p>
                         </div>
                         <div class=" d-flex justify-content-center align-items-center">
-                            @if (Auth::user()->role === 'admin')
+                            @if (Auth::user() && Auth::user()->role === 'admin')
                                 <a href="{{ '/article/modifier/' . $articles->id }}" class="btn btn-success me-3">Modifier
                                     Info Bien</a>
                                 <a href="/articles/deletearticle/{{ $articles->id }}" class="btn btn-danger">Supprimer le
@@ -63,16 +63,24 @@
                                 <div class="card mx-5 my-2">
                                     <div class="card-body d-flex justify-content-between">
                                         <div>
-                                            <div class="text mb-2 me-5"><i class="fa-solid fa-user me-2"></i> <b> {{ $comment->user->name }} </b></div>
-                                            <div class="mb-2"><i class="fa-solid fa-message me-2"></i> {{ $comment->contenu }}</div>
-                                            <div class="text mb-2"><i class="fa-solid fa-calendar me-2"></i>  {{ $comment->created_at }}</div>
+                                            <div class="text mb-2 me-5"><i class="fa-solid fa-user me-2"></i> <b>
+                                                    {{ $comment->user->name }} </b></div>
+                                            <div class="mb-2"><i class="fa-solid fa-message me-2"></i>
+                                                {{ $comment->contenu }}</div>
+                                            <div class="text mb-2"><i class="fa-solid fa-calendar me-2"></i>
+                                                {{ $comment->created_at }}</div>
                                         </div>
                                         <div>
-                                            <a href="/articles/commentaire/{{ $comment->id }}"
-                                                class="btn btn-info me-3"style="font-size: 15px;"><i
-                                                    class="fa-solid fa-pen-to-square icon-large"></i></a>
-                                            <a href="/articles/deletecommentaire/{{ $comment->id }}" class="btn btn-danger"
-                                                style="font-size: 15px; "><i class="fa-solid fa-delete-left"></i></a>
+                                            @if (Auth::user() && Auth::user()->id === $comment->user_id)
+                                                <a href="/articles/commentaire/{{ $comment->id }}"
+                                                    class="btn btn-info me-3"style="font-size: 15px;"><i
+                                                        class="fa-solid fa-pen-to-square icon-large"></i></a>
+                                            @endif
+                                            @if ((Auth::user() && Auth::user()->role === 'admin') || (Auth::user() &&  Auth::user()->id === $comment->user_id))
+                                                <a href="/articles/deletecommentaire/{{ $comment->id }}"
+                                                    class="btn btn-danger" style="font-size: 15px; "><i
+                                                        class="fa-solid fa-delete-left"></i></a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
