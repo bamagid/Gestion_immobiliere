@@ -1,6 +1,5 @@
 <?php
-
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,11 +14,13 @@ return new class extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
+            $table->enum('categorie',['luxe','moyen','abordable']);
             $table->text('description');
             $table->string('image');
             $table->string('localisation');
             $table->enum('statut',['occupé', 'disponible']);
-            $table->foreignIdFor(Admin::class)->constrained()->onDelete('cascade');
+            $table->boolean('is_deleted')->default(false);
+            $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

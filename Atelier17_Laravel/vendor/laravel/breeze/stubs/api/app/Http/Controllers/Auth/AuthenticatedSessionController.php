@@ -22,6 +22,16 @@ class AuthenticatedSessionController extends Controller
         return response()->noContent();
     }
 
+
+     public function admin(LoginRequest $request): Response
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        return response()->noContent();
+    }
+
     /**
      * Destroy an authenticated session.
      */
