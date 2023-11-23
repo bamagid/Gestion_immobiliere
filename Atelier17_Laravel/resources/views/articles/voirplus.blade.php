@@ -15,15 +15,15 @@
         </div>
     @endif
     <div class="container">
-        <div class="row mt-5 d-flex justify-content-center align-items-center">
+        <div class="row mt-5  d-flex justify-content-center align-items-center">
             <div class="col-lg-10 mt-2 mb-4 ">
                 <div class="card z-index-2" style="height:auto;">
                     <div
                         class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent
                     d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('images/' . $articles->image) }}" style="width: 400px;max-width: 100%; max-height: 100%;" alt="image de l'article">
+                        <img src="{{ asset('images/' . $articles->image) }}" style="width: 700px;max-width: 100%; max-height: 100%;object-fit: cover;object-position: center center;" alt="image de l'article">
                     </div>
-                    <div class="card-body">
+                    <div class="card-body mx-5">
                         <h6 class="mb-0 ">{{ $articles->nom }}</h6>
                         <p class="text-sm ">{{ $articles->description }}</p>
 
@@ -55,25 +55,30 @@
 
                         </div>
                     </div>
-                    <hr style="border: 2px solid black">
+                    <hr style="border: 2px solid black" class="mx-5">
                     <h3 style="text-align: center">Commentaires</h3>
-                    <div class="comment mx-10 row d-flex justify-content-center align-items-center">
-                        @forelse ($article->comments as $comment)
-                            <div class="comment mx-10 " >
-                                <div class="text-muted mb-2">Auteur : {{ $comment->user->name }}</div>
-                                <div class="mb-2">Contenu : {{ $comment->contenu }}</div>
-                                <div class="text-muted mb-2"> Date: {{ $comment->created_at }}</div>
-                                
-                                <a href="/articles/commentaire/{{ $comment->id }}" class="btn btn-success"style="font-size: 15px;"><i class="fa-solid fa-pen-to-square icon-large"></i></a>
-                                <a href="/articles/deletecommentaire/{{ $comment->id }}"
-                                    class="btn btn-danger" style="font-size: 15px; "><i class="fa-solid fa-delete-left"></i></a>
-
-                            </div>
+                    <div class="row d-flex justify-content-center align-items-center mb-5">
+                        @forelse ($articles->comments as $comment)
+                            <div class="col-md-6 ">
+                                <div class="card mx-5 my-2">
+                                    <div class="card-body d-flex justify-content-between">
+                                        <div>
+                                            <div class="text mb-2 me-5"><i class="fa-solid fa-user me-2"></i> <b> {{ $comment->user->name }} </b></div>
+                                            <div class="mb-2"><i class="fa-solid fa-message me-2"></i> {{ $comment->contenu }}</div>
+                                            <div class="text mb-2"><i class="fa-solid fa-calendar me-2"></i>  {{ $comment->created_at }}</div>
+                                        </div>
+                                        <div>
+                                            <a href="/articles/commentaire/{{ $comment->id }}"
+                                                class="btn btn-info me-3"style="font-size: 15px;"><i
+                                                    class="fa-solid fa-pen-to-square icon-large"></i></a>
+                                            <a href="/articles/deletecommentaire/{{ $comment->id }}" class="btn btn-danger"
+                                                style="font-size: 15px; "><i class="fa-solid fa-delete-left"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         @empty
-                            <div class="text-muted ms-12 mb-5 mt-0">
-                                Aucun commentaire pour ce bien immobillier
-                            </div>
+                            <div class="text-muted ms-12 mb-5 mt-0">Aucun commentaire pour ce bien immobillier</div>
                         @endforelse
                     </div>
                 </div>
