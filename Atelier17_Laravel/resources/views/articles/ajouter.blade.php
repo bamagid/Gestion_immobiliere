@@ -46,6 +46,34 @@
                         <option value="Occupé">Occupé</option>
                     </select>
                 </div>
+                <div class="input-group input-group-outline my-3">
+                    <select style="width: 500px;" name="espace_vert" class="pe-2 btn btn-sm btn-outline-primary "
+                        aria-label="Default select example">
+                        <option selected>Espace_vert</option>
+                        <option value="Oui">Oui</option>
+                        <option value="Non">Non</option>
+                    </select>
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <label class="form-label">Dimension</label>
+                    <input name="dimension" type="text" class="form-control">
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <select style="width: 500px;" name="balcons" class="pe-2 btn btn-sm btn-outline-primary "
+                        aria-label="Default select example">
+                        <option selected>Balcons</option>
+                        <option value="Oui">Oui</option>
+                        <option value="Non">Non</option>
+                    </select>
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <label class="form-label">Nombre_de_chambre</label>
+                    <input name="nombre_de_chambre" type="text" class="form-control">
+                </div>
+                <div class="input-group input-group-outline my-3">
+                    <label class="form-label">Nombre_de_toilette</label>
+                    <input name="nombre_de_toilette" type="text" class="form-control">
+                </div>
                 <div class="d-flex justify-content-center align-items-center">
                     <button type="submit" class="btn  btn-primary " style="width: 300px;">Enregistrer</button>
                 </div>
