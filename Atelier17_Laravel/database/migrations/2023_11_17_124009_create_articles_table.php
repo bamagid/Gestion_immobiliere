@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('image');
             $table->string('localisation');
             $table->enum('statut',['occupé', 'disponible']);
+            $table->integer('nombreToilette');
+            $table->integer('nombreBalcon')->default(0);
+            $table->integer('dimension');
+            $table->integer('nombreChambre');
+            $table->enum('espaceVert', ['oui', 'non']);
             $table->boolean('is_deleted')->default(false);
             $table->foreignIdFor(User::class)->constrained()->onDelete('cascade');
             $table->timestamps();
