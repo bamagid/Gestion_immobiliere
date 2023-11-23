@@ -59,9 +59,9 @@
                     <h3 style="text-align: center">Commentaires</h3>
                     <div class="row d-flex justify-content-center align-items-center mb-5">
                         @forelse ($articles->comments as $comment)
-                            <div class="col-md-6 ">
-                                <div class="card mx-5 my-2">
-                                    <div class="card-body d-flex justify-content-between">
+                            <div class="col-md-10 ">
+                                <div class="card mx-5 my-2" >
+                                    <div class="card-body d-flex justify-content" style="max-width: fit-content; overflow: auto;">
                                         <div>
                                             <div class="text mb-2 me-5"><i class="fa-solid fa-user me-2"></i> <b>
                                                     {{ $comment->user->name }} </b></div>
