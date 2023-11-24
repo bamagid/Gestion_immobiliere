@@ -38,20 +38,20 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nom' => 'required|max:255',
-        //     'categorie' => 'required',
-        //     'image' => 'required',
-        //     'description' => 'required',
-        //     'localisation' => 'required',
-        //     'statut' => 'required',
-        //     'nombreToilette'=>'required|numeric|min:1',
-        //     'nombreBalcon'=>'required|numeric',
-        //     'dimension'=>'required|numeric|min:10',
-        //     'nombreChambre'=>'required|numeric',
-        //     'espaceVert'=>'required'
+        $request->validate([
+            'nom' => 'required|max:255',
+            'categorie' => 'required',
+            'image' => 'required',
+            'description' => 'required',
+            'localisation' => 'required',
+            'statut' => 'required',
+            'nombreToilette'=>'required|numeric|min:1',
+            'nombreBalcon'=>'required|numeric',
+            'dimension'=>'required|numeric|min:10',
+            'nombreChambre'=>'required|numeric',
+            'espaceVert'=>'required'
             
-        // ]);
+        ]);
         // dd($request);
         $article = new Article();
         $this->authorize('create', $article);
@@ -73,12 +73,16 @@ class ArticleController extends Controller
         $article->nombreChambre = $request->nombreChambre;
         $article->espaceVert = $request->espaceVert;
         
-        $article->save();
         
-        if ($article) {
-            $article->notify(new NewBienImmoNotification());
+        if ($article->save()) {
+            $users = User::where('role_id', 1)->get();
+            // dd($users);
+            foreach ($users as $user) {
+                $user->notify(new NewBienImmoNotification());
+            }
+            
     }
-        return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
+        return redirect('/articles/listearticles')->with('status', "Bien Immobilier enregistré avec succès");
 
         
     }

@@ -38,7 +38,7 @@ class NewBienImmoNotification extends Notification
                     ->line('Bonjour cher membre de JYM Immo, 
                     Nous vous informons qu\'un nouveau logement est disponible sur la la plateforme.')
                     ->line('Vous pourrez consulter le logement en question à travers le lien ci-dessous.')
-                    ->action('Consulter le nouveau logement', url('/'))
+                    ->action('Consulter la liste des logements', url('/articles/listearticles'))
                     ->line('Merci pour votre fidélité.');
     }
 
