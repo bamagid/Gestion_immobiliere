@@ -37,21 +37,20 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        // $request->validate([
-        //     'nom' => 'required|max:255',
-        //     'categorie' => 'required',
-        //     'image' => 'required',
-        //     'description' => 'required',
-        //     'localisation' => 'required',
-        //     'statut' => 'required',
-        //     'nombreToilette'=>'required|numeric|min:1',
-        //     'nombreBalcon'=>'required|numeric',
-        //     'dimension'=>'required|numeric|min:10',
-        //     'nombreChambre'=>'required|numeric',
-        //     'espaceVert'=>'required'
+        $request->validate([
+            'nom' => 'required|max:255',
+            'categorie' => 'required',
+            'image' => 'required',
+            'description' => 'required',
+            'localisation' => 'required',
+            'statut' => 'required',
+            'nombreToilette'=>'required|numeric|min:1',
+            'nombreBalcon'=>'required|numeric',
+            'dimension'=>'required|numeric|min:10',
+            'nombreChambre'=>'required|numeric',
+            'espaceVert'=>'required'
             
-        // ]);
-        // dd($request);
+        ]);
         $article = new Article();
         $this->authorize('create', $article);
         $article->nom = $request->nom;
