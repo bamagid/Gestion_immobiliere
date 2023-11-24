@@ -15,7 +15,11 @@ class Article extends Model
     public function comments(){
         return $this->hasmany(Commentaire::class);
     }
+    public function chambres(){
+        return $this->hasMany(Chambre::class);
+    }
 
+    
 
     protected $fillable = [
         'nom',
@@ -23,6 +27,13 @@ class Article extends Model
         'image',
         'description',
         'localisation',
-        'statut'
+        'statut',
+        'toilette',
+        'balcon',
+        'dimension',
+        'chambre',
+        'espace_vert',
+        'user_id',
+
     ];
 }

@@ -28,7 +28,8 @@ class ArticleController extends Controller
     public function create(Article $article)
     {
         $this->authorize('View', $article);
-        return view('articles.ajouter');
+        $ok='no';
+        return view('articles.ajouter',compact('ok'));
     }
 
     /**
@@ -43,6 +44,12 @@ class ArticleController extends Controller
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
+            'nombreToilette'=>'required|numeric|min:1',
+            'nombreBalcon'=>'required|numeric',
+            'dimension'=>'required|numeric|min:10',
+            'nombreChambre'=>'required|numeric',
+            'espaceVert'=>'required'
+
         ]);
         $article = new Article();
         $this->authorize('create', $article);
@@ -58,7 +65,12 @@ class ArticleController extends Controller
         $article->user_id = Auth::user()->id;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
-
+        $article->nombreToilette = $request->nombreToilette;
+        $article->nombreBalcon = $request->nombreBalcon;
+        $article->dimension = $request->dimension;
+        $article->nombreChambre = $request->nombreChambre;
+        $article->espaceVert = $request->espaceVert;
+        
         $article->save();
         return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
     }
@@ -93,9 +105,10 @@ class ArticleController extends Controller
     {
 
         $this->authorize('Viewany', $article);
-        $article = Article::find($id);
+        $ok='ok';
+        $articles = Article::find($id);
         $admins = User::all();
-        return view('articles.modifierArticles', compact('admins', 'article'));
+        return view('articles.ajouter', compact('admins', 'articles','ok'));
     }
 
     /**
@@ -105,12 +118,16 @@ class ArticleController extends Controller
     {
 
         $request->validate([
-            'nom' => 'required',
+            'nom' => 'required|max:255',
             'categorie' => 'required',
-            'image' => 'sometimes',
+            'image' => 'somtimes',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
+            'nombreToilette'=>'required|numeric|min:1',
+            'nombreBalcon'=>'required|numeric',
+            'dimension'=>'required|numeric|min:10',
+            'nombreChambre'=>'required|numeric'
         ]);
         $article = Article::find($request->id);
         $this->authorize('update', $article);
@@ -128,6 +145,11 @@ class ArticleController extends Controller
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
         $article->user_id = Auth::user()->id;
+        $article->categorie = $request->categorie;
+        $article->nombreToilette = $request->nombreToilette;
+        $article->nombreBalcon = $request->nombreBalcon;
+        $article->dimension = $request->dimension;
+        $article->nombreChambre = $request->nombreChambre;
         $article->update();
         return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
     }

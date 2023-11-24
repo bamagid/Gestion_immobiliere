@@ -17,8 +17,8 @@ class CommentaireFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_id'=>rand(1,6),
-            'article_id'=>rand(1,8),
+            'user_id'=>rand(1,5),
+            'article_id'=>rand(1,3),
             'contenu'=>$this->faker->sentence(),
 
         ];
