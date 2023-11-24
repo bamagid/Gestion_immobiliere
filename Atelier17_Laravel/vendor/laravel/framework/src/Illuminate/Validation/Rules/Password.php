@@ -35,42 +35,42 @@ class Password implements Rule, DataAwareRule, ValidatorAwareRule
      *
      * @var int
      */
-    protected $min = 8;
+    protected $min = 10;
 
     /**
      * If the password requires at least one uppercase and one lowercase letter.
      *
      * @var bool
      */
-    protected $mixedCase = false;
+    protected $mixedCase = true;
 
     /**
      * If the password requires at least one letter.
      *
      * @var bool
      */
-    protected $letters = false;
+    protected $letters = true;
 
     /**
      * If the password requires at least one number.
      *
      * @var bool
      */
-    protected $numbers = false;
+    protected $numbers = true;
 
     /**
      * If the password requires at least one symbol.
      *
      * @var bool
      */
-    protected $symbols = false;
+    protected $symbols = true;
 
     /**
      * If the password should not have been compromised in data leaks.
      *
      * @var bool
      */
-    protected $uncompromised = false;
+    protected $uncompromised =true;
 
     /**
      * The number of times a password can appear in data leaks before being considered compromised.
@@ -366,11 +366,11 @@ class Password implements Rule, DataAwareRule, ValidatorAwareRule
         }
 
         $messages = [
-            'validation.password.mixed' => 'The :attribute must contain at least one uppercase and one lowercase letter.',
-            'validation.password.letters' => 'The :attribute must contain at least one letter.',
-            'validation.password.symbols' => 'The :attribute must contain at least one symbol.',
-            'validation.password.numbers' => 'The :attribute must contain at least one number.',
-            'validation.password.uncompromised' => 'The given :attribute has appeared in a data leak. Please choose a different :attribute.',
+            'validation.password.mixed' => 'le champ :attribute doit au moins contenir une lettre minusule et majuscule.',
+            'validation.password.letters' => 'le champ :attribute doit au moins contenir une lettre.',
+            'validation.password.symbols' => 'le champ :attribute doit au moins contenir un caractere special',
+            'validation.password.numbers' => 'le champ :attribute doit au moins contenir un nombre',
+            'validation.password.uncompromised' => 'ce :attribute a été recensé comme compromis. veuillez choisir un autre  :attribute.',
         ];
 
         return $messages[$key];

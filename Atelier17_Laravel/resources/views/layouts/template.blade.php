@@ -105,7 +105,7 @@
 
                     </a>
                 </li>
-                @if (Auth::user() && Auth::user()->role==='admin')
+                @if (Auth::user() && Auth::user()->role_id===2)
                 <li class="nav-item">
                     <a class="nav-link text-white active bg-gradient-warning" href="{{ url('/newarticle') }}">
                         <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -115,7 +115,7 @@
                     </a>
                 </li>
                 @endif
-               @if (Auth::user() &&  Auth::user()->role==='admin')
+               @if (Auth::user() &&  Auth::user()->role_id===2)
                    
                <li class="nav-item">
                    <a class="nav-link text-white active bg-gradient-info" href="{{ url('/admin') }}">

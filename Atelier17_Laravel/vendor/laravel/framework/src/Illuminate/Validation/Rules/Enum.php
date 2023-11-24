@@ -59,7 +59,7 @@ class Enum implements Rule
         $message = trans('validation.enum');
 
         return $message === 'validation.enum'
-            ? ['The selected :attribute is invalid.']
+            ? ['Le :attribute selectionné est invalide.']
             : $message;
     }
 }
