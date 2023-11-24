@@ -13,6 +13,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Auth\Events\Registered;
 use App\Providers\RouteServiceProvider;
 use App\Notifications\EnvoyerMailNouveauInscrit;
+use Exception;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +34,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -41,21 +42,18 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role_id'=>1
+            'role_id' => 1
         ]);
 
         event(new Registered($user));
-try {
-    if($user){
-        $user->notify(new EnvoyerMailNouveauInscrit());
-        Auth::login($user); 
-    }
-} catch (Exception $e) {
-    dd($e);
-}
-      
-       
-        
+        try {
+            if ($user) {
+                $user->notify(new EnvoyerMailNouveauInscrit());
+                Auth::login($user);
+            }
+        } catch (Exception $e) {
+            dd($e);
+        }
 
         return redirect(RouteServiceProvider::HOME);
     }

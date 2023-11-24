@@ -65,7 +65,7 @@
                 </div>
                 <label class="form-label">Nombre de balcon</label>
                 <div class="input-group input-group-outline my-3">
-                    <input name="nombreChambre" type="number" class="form-control" placeholder="Nombre de chambre" value="{{$ok==='ok' ? "$articles->nombreBalcon" : '' }}">
+                    <input name="nombreBalcon" type="number" class="form-control" placeholder="Nombre de chambre" value="{{$ok==='ok' ? "$articles->nombreBalcon" : '' }}">
                 </div>
                
                 <label class="form-label">Nombre de chambre</label>
