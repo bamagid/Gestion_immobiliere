@@ -17,7 +17,7 @@ class ChambreFactory extends Factory
     public function definition(): array
     {
         return [
-            'dimension'=>fake()->integer(),
+            'dimension'=>rand(8, 20),
             'image'=>'imagepath',
             'typeChambre'=>$this->faker->randomElement(['simple','avec salle de bain']),
             'article_id'=>rand(1,9), 

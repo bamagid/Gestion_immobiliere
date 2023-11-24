@@ -6,6 +6,7 @@ use App\Models\Admin;
 use App\Models\Article;
 use App\Models\Commentaire;
 use App\Models\User;
+use App\Notifications\NewBienImmoNotification;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -60,7 +61,13 @@ class ArticleController extends Controller
         $article->statut = $request->statut;
 
         $article->save();
+        
+        if ($article) {
+            $article->notify(new NewBienImmoNotification());
+    }
         return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
+
+        
     }
 
     /**
