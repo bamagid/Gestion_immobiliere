@@ -31,7 +31,7 @@ class CommentairePolicy
      */
     public function create(User $user, Commentaire $commentaire): Response
     {
-        return $user->role==='user' 
+        return $user->role_id===1
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour faire un commentaire. '); ;
     }
@@ -51,7 +51,7 @@ class CommentairePolicy
      */
     public function delete(User $user, Commentaire $commentaire): Response
     {
-        return $user->id === $commentaire->user_id || $user->role === 'admin'
+        return $user->id === $commentaire->user_id ||  $user->role_id===1
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour supprimer ce commentaire. ');
     }
@@ -61,7 +61,7 @@ class CommentairePolicy
      */
     public function restore(User $user, Commentaire $commentaire): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::denyWithStatus(403);
     }
@@ -71,7 +71,7 @@ class CommentairePolicy
      */
     public function forceDelete(User $user, Commentaire $commentaire): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::denyWithStatus(403);
     }

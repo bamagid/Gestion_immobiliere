@@ -14,7 +14,7 @@ class ArticlePolicy
      */
     public function viewAny(User $user,Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour voir cette page');
     }
@@ -24,7 +24,7 @@ class ArticlePolicy
      */
     public function view(User $user , Article $article):Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour voir cette page');
     }
@@ -34,7 +34,7 @@ class ArticlePolicy
      */
     public function create(User $user , Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour creer un article');
     }
@@ -44,7 +44,7 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour modifier cet article.');
     }
@@ -54,7 +54,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour supprimer cet article. ');
     }
@@ -64,7 +64,7 @@ class ArticlePolicy
      */
     public function restore(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::denyWithStatus(403);
     }
@@ -74,7 +74,7 @@ class ArticlePolicy
      */
     public function forceDelete(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->role_id===2
         ? Response::allow()
                 : Response::denyWithStatus(403);
     }
