@@ -44,7 +44,8 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+      
+        return $user->id===$article->user_id 
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour modifier cet article.');
     }
@@ -54,7 +55,7 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article): Response
     {
-        return $user->role==='admin'
+        return $user->id==$article->user_id
         ? Response::allow()
                 : Response::deny('Vous n\'avez pas les droits pour supprimer cet article. ');
     }
