@@ -11,7 +11,7 @@
         @csrf
         <div class="container col-md-6 border">
             <h4 class="text-center">
-                {{$ok==='ok' ? "Modifier Informations $articles->nom " : "Ajouter un nouveau Bien Immobillier <br> (Appartement, Maison, Studio ...)"}} <br>
+                {{$ok==='ok' ? "Modifier Informations $articles->nom " : "Ajouter un nouveau Bien Immobillier  (Appartement, Maison, Studio ...)"}} <br>
             </h4>
             <div class="row ">
                 <label class="form-label mb-2">Nom du bien immobilier</label>
@@ -65,7 +65,7 @@
                 </div>
                 <label class="form-label">Nombre de balcon</label>
                 <div class="input-group input-group-outline my-3">
-                    <input name="nombreBalcon" type="number" class="form-control" placeholder="Nombre de chambre" value="{{$ok==='ok' ? "$articles->nombreBalcon" : '' }}">
+                    <input name="nombreBalcon" type="number" class="form-control" placeholder="Nombre de balcon" value="{{$ok==='ok' ? "$articles->nombreBalcon" : '' }}">
                 </div>
                
                 <label class="form-label">Nombre de chambre</label>

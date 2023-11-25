@@ -70,9 +70,9 @@ class ArticleController extends Controller
         $article->dimension = $request->dimension;
         $article->nombreChambre = $request->nombreChambre;
         $article->espaceVert = $request->espaceVert;
-        
         $article->save();
-        return redirect('/newarticle')->with('status', "Bien Immobilier enregistré avec succès");
+        $bien=$article;
+        return view('articles.ajouterChambre',compact('bien'));
     }
 
     /**
@@ -94,7 +94,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $this->authorize('View', $article);
-        $articles = Article::paginate(6);
+        $articles = Article::where('user_id',Auth::user()->id)->paginate(6);
         return view('articles.myposts', ['articles' => $articles]);
     }
 
