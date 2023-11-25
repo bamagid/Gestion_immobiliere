@@ -7,7 +7,7 @@ use App\Models\Article;
 use App\Models\Chambre;
 use App\Models\Commentaire;
 use App\Models\User;
-use Illuminate\Console\View\Components\Choice;
+use App\Notifications\NewBienImmoNotification;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
