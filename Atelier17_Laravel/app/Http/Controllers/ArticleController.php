@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use App\Models\Article;
+use App\Models\Chambre;
 use App\Models\Commentaire;
 use App\Models\User;
+use Illuminate\Console\View\Components\Choice;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -72,7 +74,8 @@ class ArticleController extends Controller
         $article->espaceVert = $request->espaceVert;
         $article->save();
         $bien=$article;
-        return view('articles.ajouterChambre',compact('bien'));
+        $ok='no';
+        return view('articles.ajouterChambre',compact('bien','ok'));
     }
 
     /**
@@ -130,6 +133,7 @@ class ArticleController extends Controller
             'nombreChambre'=>'required|numeric'
         ]);
         $article = Article::find($request->id);
+        $nmbre=$article->nombreChambre;
         $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
@@ -151,8 +155,27 @@ class ArticleController extends Controller
         $article->dimension = $request->dimension;
         $article->nombreChambre = $request->nombreChambre;
         $article->update();
-        return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        $bien=$article;
+        $ok='ok';
+        
+        if ($nmbre == $request->nombreChambre) {
+            return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        }else{
+                $chambres=Chambre::all();
+                foreach ($chambres as $chambre) {
+                if ($chambre->article_id === $article->id) {
+                    if (File::exists(public_path('images/' . $chambre->image))) {
+                        File::delete(public_path('images/' . $chambre->image));
+                    }
+                    $chambre->delete();
+                    }
+            }
+            return view('articles.ajouterChambre',compact('bien','ok'));
+        }
+       
     }
+
+
 
     /**
      * Remove the specified resource from storage.

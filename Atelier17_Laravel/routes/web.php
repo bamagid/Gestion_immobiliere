@@ -40,6 +40,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin',[ArticleController::class,'show']);
 
     Route::post('/chambres/ajouter',[ChambreController::class,'store']);
+    Route::post('/chambres/modifier',[ChambreController::class,'updates']);
+    Route::post('/chambre/{id}/update',[ChambreController::class,'update']);
+    Route::post('/chambres/supprimer',[ChambreController::class,'delete']);
     
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);

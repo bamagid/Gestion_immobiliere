@@ -7,11 +7,11 @@
     </div>
 </div>
 @endif
-<form action="/chambres/ajouter" method="POST" enctype="multipart/form-data">
+<form action="{{$ok==='ok' ? '/chambres/modifier' : '/chambres/ajouter'}}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="container col-md-6 border">
         <h4 class="text-center">
-            Ajout de chambres pour le bien immobilier {{$bien->nom}}
+            {{$ok==='ok' ? "Modification des chambres pour le bien immobilier $bien->nom "   : "Ajout des chambres pour le bien immobilier $bien->nom "}}
         </h4><br>
         @for ($i = 0; $i < $bien->nombreChambre; $i++)
         <div class="row ">
@@ -36,7 +36,7 @@
             @endfor
             <div class="d-flex justify-content-center align-items-center">
                 <input type="hidden" name="article_id" value="{{$bien->id}}">
-                <button type="submit" class="btn  btn-primary " style="width: 300px;"> Ajouter</button>
+                <button type="submit" class="btn  btn-primary " style="width: 300px;"> {{$ok==='ok' ? 'Modifier' : 'Ajouter'}}</button>
             </div>
         </div>
     </div>

@@ -54,7 +54,7 @@ class ChambreController extends Controller
             };
         }
     
-            $articles = Article::paginate(6);
+            $articles = Article::where('user_id',Auth::user()->id)->paginate(6);
             return view('articles.myposts', ['articles' => $articles]);
         
             
@@ -75,12 +75,41 @@ class ChambreController extends Controller
         //
     }
 
+
+    public function update(Request $request, Chambre $chambre){
+
+
+    }
+
     /**
-     * Update the specified resource in storage.
+     * Update the specified  resource in storage.
      */
-    public function update(Request $request, Chambre $chambre)
-    {
-        //
+    public function updates(Request $request, Chambre $chambre)
+    {   
+        for ($i = 0; $i <count($request->chambres); $i++) {
+            $chambre = new Chambre();
+            $chambre->dimension = $request->chambres[$i]['dimension'];
+            if ($request->hasFile('chambres.' . $i . '.image')) {
+                $file = $request->file('chambres.' . $i . '.image');
+                $filename = date('YmdHi') . $file->getClientOriginalName();
+                $file->move(public_path('Chambres'), $filename);
+                $chambre->image = $filename;
+            }
+            $chambre->typeChambre = $request->chambres[$i]['statut'];
+            $chambre->article_id = $request->article_id;
+            $chambre->update();
+            if(!$chambre->update()){
+                $article=Article::find($request->article_id);
+                if (File::exists(public_path('images/' . $article->image))) {
+                File::delete(public_path('images/' . $article->image));
+                $article->delete();
+            }
+            return back()->with('status', "L'ajout des informations suplementaire du bien a echouer veuillez reessayer svp");
+            };
+        }
+    
+            $articles =Article::where('user_id',Auth::user()->id)->paginate(6);
+            return view('articles.myposts', ['articles' => $articles]);
     }
 
     /**
