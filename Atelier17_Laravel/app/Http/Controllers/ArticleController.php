@@ -75,6 +75,7 @@ class ArticleController extends Controller
         $article->save();
         $bien=$article;
         $ok='no';
+        $article->save();
         return view('articles.ajouterChambre',compact('bien','ok'));
     }
 

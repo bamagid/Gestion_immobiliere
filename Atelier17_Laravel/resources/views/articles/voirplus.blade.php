@@ -78,7 +78,7 @@
                                         <div>
                                             <div class="text mb-2 me-5">
                                                 <i class="fa-solid fa-image me-2"></i>
-                                                <img src="{{ asset('chambres/' . $chambre->image) }}"
+                                                <img src="{{ asset('chambres/' .$chambre->image) }}"
                                                     alt="Image de la chambre" style="max-width: 00px ;">
                                             </div>
                                             <div class="mb-2">

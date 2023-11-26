@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Chambre;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use App\Notifications\NewBienImmoNotification;
 
 class ChambreController extends Controller
 {
@@ -51,6 +53,11 @@ class ChambreController extends Controller
             }
             return back()->with('status', "L'ajout des informations suplementaire du bien a echouer veuillez reessayer svp");
 
+            }else{
+                $users = User::where('role_id', 1)->get();
+                foreach ($users as $user) {
+                    $user->notify(new NewBienImmoNotification($request->article_id));
+                }
             };
         }
     
