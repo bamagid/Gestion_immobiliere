@@ -123,7 +123,7 @@ class ArticleController extends Controller
         $request->validate([
             'nom' => 'required|max:255',
             'categorie' => 'required',
-            'image' => 'somtimes',
+            'image' => 'sometimes',
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
@@ -155,22 +155,23 @@ class ArticleController extends Controller
         $article->dimension = $request->dimension;
         $article->nombreChambre = $request->nombreChambre;
         $article->update();
-        $bien=$article;
-        $ok='ok';
         
         if ($nmbre == $request->nombreChambre) {
             return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
         }else{
-                $chambres=Chambre::all();
-                foreach ($chambres as $chambre) {
+            $chambres=Chambre::all();
+            foreach ($chambres as $chambre) {
                 if ($chambre->article_id === $article->id) {
                     if (File::exists(public_path('images/' . $chambre->image))) {
                         File::delete(public_path('images/' . $chambre->image));
                     }
                     $chambre->delete();
-                    }
+                }
             }
+            $bien=$article;
+            $ok='bon';
             return view('articles.ajouterChambre',compact('bien','ok'));
+            
         }
        
     }

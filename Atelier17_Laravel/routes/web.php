@@ -39,9 +39,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/admin',[ArticleController::class,'show']);
 
-    Route::post('/chambres/ajouter',[ChambreController::class,'store']);
-    Route::post('/chambres/modifier',[ChambreController::class,'updates']);
-    Route::post('/chambre/{id}/update',[ChambreController::class,'update']);
+    Route::post('/chambres/ajouter',[ChambreController::class,'store'])->name('chambres.ajouter');
+    Route::get('/chambre/update/{id}',[ChambreController::class,'edit']);
+    Route::post('/chambre/{id}/update',[ChambreController::class,'update'])->name( 'chambres.modifier');;
     Route::post('/chambres/supprimer',[ChambreController::class,'delete']);
     
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
