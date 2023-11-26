@@ -51,7 +51,6 @@ class ArticleController extends Controller
             'dimension'=>'required|numeric|min:10',
             'nombreChambre'=>'required|numeric',
             'espaceVert'=>'required'
-            
         ]);
         $article = new Article();
         $this->authorize('create', $article);
@@ -163,6 +162,7 @@ class ArticleController extends Controller
             $chambres=Chambre::all();
             foreach ($chambres as $chambre) {
                 if ($chambre->article_id === $article->id) {
+                    $this->authorize('delete', $chambre);
                     if (File::exists(public_path('images/' . $chambre->image))) {
                         File::delete(public_path('images/' . $chambre->image));
                     }

@@ -31,9 +31,9 @@ class ChambreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request , Chambre $chambre)
     {
-       
+        $this->authorize('create', $chambre);
         for ($i = 0; $i <count($request->chambres); $i++) {
             $chambre = new Chambre();
             $chambre->dimension = $request->chambres[$i]['dimension'];
@@ -92,6 +92,7 @@ class ChambreController extends Controller
             'article_id'=>'required'
             ]);
             $chambre=Chambre::findOrFail($request->id);
+            $this->authorize('create', $chambre);
             $chambre->dimension = $request->dimension;
             if ($request->hasFile('image')) {
                 if (File::exists(public_path('images/' . $chambre->image))) {

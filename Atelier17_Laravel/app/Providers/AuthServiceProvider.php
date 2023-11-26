@@ -5,10 +5,12 @@ namespace App\Providers;
 // use Illuminate\Support\Facades\Gate;
 
 use App\Models\Article;
+use App\Models\Chambre;
 use App\Models\Commentaire;
 use App\Models\User;
 use App\Policies\ArticlePolicy;
 use App\Policies\CommentairePolicy;
+use App\Policies\ChambrePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -22,6 +24,7 @@ class AuthServiceProvider extends ServiceProvider
         Article::class => ArticlePolicy::class,
         Commentaire::class => CommentairePolicy::class,
         User::class => UserPolicy::class,
+        Chambre::class => ChambrePolicy::class,
     ];
 
     /**

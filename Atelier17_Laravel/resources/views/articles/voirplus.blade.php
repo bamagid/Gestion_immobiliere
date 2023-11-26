@@ -56,7 +56,7 @@
                                 <form action="{{ url('/articles/commentaireupdate/' . $commentaire->id) }}"
                                     class="comment_class" method="post">
                                     @csrf
-                                    <input type="hidden" name="article_id" value="{{ $article->id }}">
+                                    <input type="hidden" name="article_id" value="{{ $articles->id }}">
                                     <input type="hidden" name="id" value='{{ $commentaire->id }}'>
                                     <input type="text" class="input_comment" name="contenu"
                                         value="{{ $commentaire->contenu }}">
@@ -78,7 +78,7 @@
                                         <div>
                                             <div class="text mb-2 me-5">
                                                 <i class="fa-solid fa-image me-2"></i>
-                                                <img src="{{ asset('chambres/' .$chambre->image) }}"
+                                                <img src="{{ asset('chambres/'.$chambre->image) }}"
                                                     alt="Image de la chambre" style="max-width: 00px ;">
                                             </div>
                                             <div class="mb-2">
