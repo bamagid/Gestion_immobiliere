@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Commentaire;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Article extends Model
 {
@@ -15,7 +16,11 @@ class Article extends Model
     public function comments(){
         return $this->hasmany(Commentaire::class);
     }
-
+    public function chambres(){
+        return $this->hasMany(Chambre::class);
+    }
+    
+    use Notifiable;
 
     protected $fillable = [
         'nom',
@@ -23,6 +28,14 @@ class Article extends Model
         'image',
         'description',
         'localisation',
-        'statut'
+        'statut',
+        'toilette',
+        'balcon',
+        'dimension',
+        'chambre',
+        'espace_vert',
+        'user_id',
+
     ];
+
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Commentaire;
@@ -18,7 +19,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::middleware('guest')->group(function () {
+    
+});
 Route::get('/articles/listearticles', [ArticleController::class, 'index']);
 
 Route::get('/articles/{id}',[ArticleController::class,'shows']);
@@ -35,6 +38,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::get('/admin',[ArticleController::class,'show']);
+
+    Route::post('/chambres/ajouter',[ChambreController::class,'store'])->name('chambres.ajouter');
+    Route::get('/chambre/update/{id}',[ChambreController::class,'edit']);
+    Route::post('/chambre/{id}/update',[ChambreController::class,'update'])->name( 'chambres.modifier');;
+    Route::post('/chambres/supprimer',[ChambreController::class,'delete']);
     
     Route::get('/article/modifier/{id}',[ArticleController::class,'edit']);
     Route::post('/articles/modifierArticle/{id}',[ArticleController::class,'update']);
