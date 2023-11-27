@@ -14,7 +14,7 @@
                     <div
                         class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent
                                         d-flex justify-content-center align-items-center">
-                        <img src="{{ asset('images/' . $article->image) }}" style="width: 80%; height: 350px; object-fit: cover;object-position: center center;" alt="image de l'article">
+                        <img src="{{ asset('images/' . $article->image) }}" style="width: 100%; height: 350px; object-fit: cover;object-position: center center;" alt="image de l'article">
                     </div>
                     <div class="card-body" style="overflow: hidden;">
                         <h6 class="mb-0 ">{{ $article->nom }}</h6>

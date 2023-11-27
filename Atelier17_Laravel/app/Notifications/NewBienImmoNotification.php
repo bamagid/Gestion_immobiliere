@@ -14,9 +14,9 @@ class NewBienImmoNotification extends Notification
     /**
      * Create a new notification instance.
      */
-    public function __construct()
+    public function __construct($id)
     {
-        //
+        $this->id=$id;
     }
 
     /**
@@ -38,7 +38,7 @@ class NewBienImmoNotification extends Notification
                     ->line('Bonjour cher membre de JYM Immo, 
                     Nous vous informons qu\'un nouveau logement est disponible sur la la plateforme.')
                     ->line('Vous pourrez consulter le logement en question à travers le lien ci-dessous.')
-                    ->action('Consulter la liste des logements', url('/articles/listearticles'))
+                    ->action('Consulter le nouveau logement', url('/articles/'.$this->id))
                     ->line('Merci pour votre fidélité.');
     }
 
