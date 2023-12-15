@@ -36,7 +36,7 @@ class NewBienImmoNotification extends Notification
     {
         return (new MailMessage)
                     ->line('Bonjour cher membre de JYM Immo, 
-                    Nous vous informons qu\'un nouveau logement est disponible sur la la plateforme.')
+                        Nous vous informons qu\'un nouveau logement est disponible sur la la plateforme.')
                     ->line('Vous pourrez consulter le logement en question à travers le lien ci-dessous.')
                     ->action('Consulter le nouveau logement', url('/articles/'.$this->id))
                     ->line('Merci pour votre fidélité.');

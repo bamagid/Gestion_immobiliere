@@ -39,6 +39,7 @@
                             <p class="text-sm me-3">{{ $articles->statut }}</p>
                             <i class="fa-solid fa-location-dot me-2"></i>
                             <p class="text-sm">{{ $articles->localisation }}</p>
+                            <p class="text-sm me-3">  Nombre de chambres: {{ $articles->nombreChambre ?? 'N/A' }}</p>
                             <p class="text-sm me-3">  Nombre de toilettes: {{ $articles->nombreToilette ?? 'N/A' }}</p>
                             <p class="text-sm me-3">  Nombre de balcons: {{ $articles->nombreBalcon ?? 'N/A' }}</p>
                             <p class="text-sm me-3">  Espaces verts: {{ $articles->espaceVert ?? 'N/A' }}</p>
@@ -70,16 +71,15 @@
                     <h3 style="text-align: center">Chambres</h3>
 
                     <div class="row d-flex justify-content-center align-items-center mb-5">
-                        @foreach ($articles->chambres as $chambre)
+                        @foreach ($articles->chambres  as $chambre)
                             <div class="col-md-10">
                                 <div class="card mx-5 my-2">
                                     <div class="card-body d-flex justify-content"
                                         style="max-width: fit-content; overflow: auto;">
                                         <div>
                                             <div class="text mb-2 me-5">
-                                                <i class="fa-solid fa-image me-2"></i>
                                                 <img src="{{ asset('chambres/'.$chambre->image) }}"
-                                                    alt="Image de la chambre" style="max-width: 00px ;">
+                                                    alt="Image de la chambre" style="max-width: 500px ;max-heigth: 500px ;">
                                             </div>
                                             <div class="mb-2">
                                                 <i class="fa-solid fa-info-circle me-2"></i>
