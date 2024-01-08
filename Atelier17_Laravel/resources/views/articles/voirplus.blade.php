@@ -79,12 +79,12 @@
                                             <div class="text mb-2 me-5">
                                                 <i class="fa-solid fa-image me-2"></i>
                                                 <img src="{{ asset('chambres/' .$chambre->image) }}"
-                                                    alt="Image de la chambre" style="max-width: 00px ;">
+                                                    alt="Image de la chambre" style="max-width: 500px ;">
                                             </div>
                                             <div class="mb-2">
                                                 <i class="fa-solid fa-info-circle me-2"></i>
                                                 Type de chambre:
-                                                {{ $chambre->typeChambre === 'simple' ? 'Chambre sans sallle de bain' : 'Chambre avec sallle de bain' }}
+                                                {{ $chambre->typeChambre === 'simple' ? 'Chambre sans salle de bain' : 'Chambre avec salle de bain' }}
                                             </div>
                                             <div class="text mb-2">
                                                 <i class="fa-solid fa-ruler me-2"></i>
