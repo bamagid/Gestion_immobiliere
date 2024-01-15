@@ -1,0 +1,1 @@
+{"version":1,"defects":{"Tests\\Unit\\CreerBienTest::testAddBien":8,"Tests\\Feature\\CreerBienTest::testAddBien":8},"times":{"Tests\\Unit\\CreerBienTest::testAddBien":0.058,"Tests\\Feature\\CreerBienTest::testAddBien":31.507}}
