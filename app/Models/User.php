@@ -47,17 +47,20 @@ class User extends Authenticatable
     /**
      * Get all comments made by this user.
      */
-    public function comments(){
-        return $this->hasMany(Comment::class);
+    public function comments()
+    {
+        return $this->hasMany(Commentaire::class);
     }
 
     /**
      * Get the role associated with this user.
      */
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
-    public function notifications(){
+    public function notifications()
+    {
         return $this->hasMany(Notification::class);
     }
 }

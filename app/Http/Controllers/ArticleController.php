@@ -30,8 +30,8 @@ class ArticleController extends Controller
     public function create(Article $article)
     {
         $this->authorize('View', $article);
-        $ok='no';
-        return view('articles.ajouter',compact('ok'));
+        $ok = 'no';
+        return view('articles.ajouter', compact('ok'));
     }
 
     /**
@@ -46,11 +46,11 @@ class ArticleController extends Controller
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
-            'nombreToilette'=>'required|numeric|min:1',
-            'nombreBalcon'=>'required|numeric',
-            'dimension'=>'required|numeric|min:10',
-            'nombreChambre'=>'required|numeric',
-            'espaceVert'=>'required'
+            'nombreToilette' => 'required|numeric|min:1',
+            'nombreBalcon' => 'required|numeric',
+            'dimension' => 'required|numeric|min:10',
+            'nombreChambre' => 'required|numeric',
+            'espaceVert' => 'required'
         ]);
         $article = new Article();
         $this->authorize('create', $article);
@@ -63,7 +63,7 @@ class ArticleController extends Controller
             $article['image'] = $filename;
         }
         $article->description = $request->description;
-        $article->user_id = Auth::user()->id;
+        $article->user_id = $request->user_id;
         $article->localisation = $request->localisation;
         $article->statut = $request->statut;
         $article->nombreToilette = $request->nombreToilette;
@@ -72,10 +72,10 @@ class ArticleController extends Controller
         $article->nombreChambre = $request->nombreChambre;
         $article->espaceVert = $request->espaceVert;
         $article->save();
-        $bien=$article;
-        $ok='no';
+        $bien = $article;
+        $ok = 'no';
         $article->save();
-        return view('articles.ajouterChambre',compact('bien','ok'));
+        return view('articles.ajouterChambre', compact('bien', 'ok'));
     }
 
     /**
@@ -83,7 +83,7 @@ class ArticleController extends Controller
      */
     public function shows($id)
     {
-        $articles= Article::find($id);
+        $articles = Article::find($id);
         return view('articles.voirplus', ['articles' => $articles]);
     }
 
@@ -97,21 +97,21 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         $this->authorize('View', $article);
-        $articles = Article::where('user_id',Auth::user()->id)->paginate(6);
+        $articles = Article::where('user_id', Auth::user()->id)->paginate(6);
         return view('articles.myposts', ['articles' => $articles]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id,Article $article)
+    public function edit($id, Article $article)
     {
 
         $this->authorize('Viewany', $article);
-        $ok='ok';
+        $ok = 'ok';
         $articles = Article::find($id);
         $admins = User::all();
-        return view('articles.ajouter', compact('admins', 'articles','ok'));
+        return view('articles.ajouter', compact('admins', 'articles', 'ok'));
     }
 
     /**
@@ -127,13 +127,13 @@ class ArticleController extends Controller
             'description' => 'required',
             'localisation' => 'required',
             'statut' => 'required',
-            'nombreToilette'=>'required|numeric|min:1',
-            'nombreBalcon'=>'required|numeric',
-            'dimension'=>'required|numeric|min:10',
-            'nombreChambre'=>'required|numeric'
+            'nombreToilette' => 'required|numeric|min:1',
+            'nombreBalcon' => 'required|numeric',
+            'dimension' => 'required|numeric|min:10',
+            'nombreChambre' => 'required|numeric'
         ]);
         $article = Article::find($request->id);
-        $nmbre=$article->nombreChambre;
+        $nmbre = $article->nombreChambre;
         $this->authorize('update', $article);
         $article->nom = $request->nom;
         if ($request->file('image')) {
@@ -155,11 +155,11 @@ class ArticleController extends Controller
         $article->dimension = $request->dimension;
         $article->nombreChambre = $request->nombreChambre;
         $article->update();
-        
+
         if ($nmbre == $request->nombreChambre) {
-            return redirect('/articles/'.$request->id)->with('statut', "Bien Immobilier modifier avec succès");
-        }else{
-            $chambres=Chambre::all();
+            return redirect('/articles/' . $request->id)->with('statut', "Bien Immobilier modifier avec succès");
+        } else {
+            $chambres = Chambre::all();
             foreach ($chambres as $chambre) {
                 if ($chambre->article_id === $article->id) {
                     $this->authorize('delete', $chambre);
@@ -169,12 +169,10 @@ class ArticleController extends Controller
                     $chambre->delete();
                 }
             }
-            $bien=$article;
-            $ok='bon';
-            return view('articles.ajouterChambre',compact('bien','ok'));
-            
+            $bien = $article;
+            $ok = 'bon';
+            return view('articles.ajouterChambre', compact('bien', 'ok'));
         }
-       
     }
 
 
@@ -182,7 +180,7 @@ class ArticleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id ,Article $article)
+    public function destroy($id, Article $article)
     {
         $this->authorize('delete', $article);
         $article = Article::findOrfail($id);
