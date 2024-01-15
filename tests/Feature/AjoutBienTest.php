@@ -2,13 +2,18 @@
 
 namespace Tests\Feature;
 
-use App\Models\Article;
 use Tests\TestCase;
+
 use App\Models\User;
-use Illuminate\Http\UploadedFile;
+use App\Models\Article;
+
+
 use Illuminate\Support\Facades\Storage;
+use App\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+// use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Illuminate\Http\UploadedFile;
 
 class AjoutBienTest extends TestCase
 {
@@ -20,6 +25,7 @@ class AjoutBienTest extends TestCase
         Storage::fake('public');
 
         $user = User::factory()->create();
+        // $user = User::factory()->create();
         $this->actingAs($user);
 
         $response = $this->withoutMiddleware(\App\Http\Middleware\VerifyCsrfToken::class)->post('/addarticle', [
