@@ -1,0 +1,46 @@
+services:
+  database:
+    image: mysql:8.2
+    container_name: mysql_laravel
+    volumes:
+      - volume_db:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      MYSQL_DATABASE: gestion_immo
+    ports:
+      - 8002:3306
+    networks:
+      - monreseau
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin_laravel
+    ports:
+      - 9000:80
+    environment:
+      environment:
+      PMA_HOST: database
+    networks:
+      - monreseau
+    depends_on:
+      - database
+
+  immo_docker:
+    build:
+      context: .
+      dockerfile: docker/dockerfile
+    container_name: immo_docker
+    restart: always
+    ports:
+      - 8001:80
+    volumes:
+      - .:/var/www/html
+    depends_on:
+      - database
+    networks:
+      - monreseau
+
+volumes:
+  volume_db:
+networks:
+  monreseau:
